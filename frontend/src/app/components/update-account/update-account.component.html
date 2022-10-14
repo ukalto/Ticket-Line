@@ -1,0 +1,10 @@
+<app-headline [icon]="'manage_accounts'" [text]="'Edit Account'" [centered]="true"></app-headline>
+
+<mat-tab-group class="mt-24px" mat-align-tabs="center" animationDuration="0ms" *ngIf="isDataLoaded">
+  <mat-tab label="Change Email/Password">
+    <app-update-password [editUserDto]="editUserDto"></app-update-password>
+  </mat-tab>
+  <mat-tab label="Add/Edit Payment information">
+    <app-update-payment [editUserDto]="editUserDto" [groupInput]="groupInput"></app-update-payment>
+  </mat-tab>
+</mat-tab-group>

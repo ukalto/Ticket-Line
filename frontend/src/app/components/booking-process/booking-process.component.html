@@ -1,0 +1,32 @@
+<mat-stepper linear #stepper [hidden]="!validatedId">
+  <mat-step label="Choose Event" completed="completed" editable="false">
+  </mat-step>
+  <mat-step label="Choose Place">
+    <app-seat-selection
+      (submitEvent)="submitSeatSelection($event)"
+      [eventId]="eventId"
+      [showingId]="showingId"
+      *ngIf="validatedId">
+    </app-seat-selection>
+  </mat-step>
+  <mat-step label="Buy/Reserve">
+    <app-conclude-booking
+      [bookingInfo]="bookingInfo"
+      [bookingType]="bookingType"
+      [eventId]="eventId"
+      [showingId]="showingId"
+      (submitBooking)="submitBooking($event)"
+      (submitError)="submitBookingError()"
+      *ngIf="validatedId"></app-conclude-booking>
+  </mat-step>
+  <mat-step label="Confirmation">
+    <app-booking-confirmation
+      [bookingInfo]="bookingInfo"
+      [eventId]="eventId"
+      [showingId]="showingId"
+      [bookingType]="bookingType"
+      [bookingId]="bookingId"
+      *ngIf="validatedId">
+    </app-booking-confirmation>
+  </mat-step>
+</mat-stepper>

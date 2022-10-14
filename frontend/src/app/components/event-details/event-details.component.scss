@@ -1,0 +1,105 @@
+.center {
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  flex-direction: row;
+  margin-top: 24px;
+  margin-bottom: 24px;
+}
+
+.center > * {
+  margin-left: 12px;
+  margin-right: 12px;
+}
+
+.logIn {
+  margin-right: 12px;
+  margin-left: 12px;
+}
+
+h3 {
+  margin-right: 36px;
+  font-size: 24px;
+  font-weight: 500;
+}
+
+.shows {
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: column;
+}
+
+table {
+  width: 100%;
+  text-align: start;
+}
+
+td, th {
+  width: 17%;
+  margin: 0;
+}
+
+.mat-form-field {
+  font-size: 14px;
+  width: 100%;
+}
+
+h2 {
+  font-weight: 400;
+  align-self: flex-start;
+}
+
+.information {
+  display: flex;
+  flex-direction: column;
+  margin-left: 24px;
+  align-items: flex-start;
+}
+
+.information:last-child {
+  margin-right: 0;
+}
+
+.information a {
+  font-size: 16px;
+  font-weight: 400;
+}
+
+.detail-title {
+  display: flex;
+  flex-direction: row;
+  margin-top: 12px;
+}
+
+.top-margin {
+  margin-top: 24px;
+}
+
+.top-group {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  margin-bottom: 48px;
+}
+
+img {
+  width: 250px;
+  height: 250px;
+  object-fit: cover;
+}
+
+#error-message {
+  text-align: center;
+}
+
+.mat-chip.mat-standard-chip::after {
+  background: #0000;
+}
+
+.mat-chip.mat-standard-chip::selection {
+  background: #0000;
+}
+
+.padding-bottom {
+  padding-bottom: 60px;
+}

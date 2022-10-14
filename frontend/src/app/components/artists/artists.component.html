@@ -1,0 +1,66 @@
+<app-headline [icon]="'star'" [text]="'Artists'" [centered]="true"></app-headline>
+
+<div class="center">
+  <form [formGroup]="filterArtists" class="form-style">
+    <mat-form-field appearance="outline" class="example-full-width">
+      <mat-label>Artist Name</mat-label>
+      <mat-icon matSuffix>face_retouching_natural</mat-icon>
+      <input type="text" matInput formControlName="name">
+    </mat-form-field>
+    <div class="center-button">
+      <button mat-flat-button class="reset-button" [disabled]="resetFilterOff" (click)="resetFilter()">
+        Reset Filter
+      </button>
+      <button mat-flat-button color="primary" (click)="applyFilter()">
+        <mat-icon matPrefix>search</mat-icon>
+        Apply Filter
+      </button>
+    </div>
+  </form>
+</div>
+
+<div class="expansion-panel">
+  <mat-card *ngIf="artistEvents.length === 0">
+    <h3>No artists were found with the current filter!</h3>
+  </mat-card>
+  <mat-accordion>
+    <mat-expansion-panel *ngFor="let artist of artistEvents" [disabled]="artist.events.length === 0">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <h3>{{artist.name}}</h3>
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      <div class="search-results">
+        <mat-card *ngFor="let event of artist.events" class="mb-24px">
+          <img *ngIf="event.imageReference" [src]="extractImage(event.imageReference)" class="column-width-2"
+               alt="Event Picture">
+          <img *ngIf="!event.imageReference" src="/assets/images/img.png" class="column-width-2" alt="No Picture">
+          <div class="content has-text-left">
+            <div class="result-header">
+              <h3 class="mr-12px">{{event.title}}</h3>
+              <mat-chip-list class="margin-left">
+                <mat-chip>{{event.category}}</mat-chip>
+              </mat-chip-list>
+            </div>
+            <p>{{event.description}}</p>
+            <p *ngIf="event.soldOut" class="sold-out-warning">
+              <mat-icon class="has-text-orange mr-12px" aria-hidden="false" aria-label="title icon">warning</mat-icon>
+              This event is currently sold out!
+            </p>
+            <p class="mb-0">
+              <button mat-flat-button color="primary" (click)="detailsAndBooking(event.id)">
+                Details & Booking
+              </button>
+            </p>
+          </div>
+        </mat-card>
+      </div>
+    </mat-expansion-panel>
+  </mat-accordion>
+</div>
+
+<div class="center-load-more">
+  <button *ngIf="artistEvents.length < totalElements"
+          mat-flat-button color="primary" (click)="loadMore()">Load more
+  </button>
+</div>

@@ -1,0 +1,28 @@
+<h2 class="center-items has-text-centered mt-48px">
+    <mat-icon class="has-text-success success-icon mr-12px" aria-hidden="false" aria-label="title icon">check_circle
+    </mat-icon>
+    {{getTitleText()}}
+</h2>
+
+<div class="middle-section mt-48px">
+    <app-booking-showing-info [eventId]="eventId" [showingId]="showingId">
+    </app-booking-showing-info>
+    <app-price-info *ngIf="bookingInfo" [showingId]="showingId" [bookingInfo]="bookingInfo"></app-price-info>
+</div>
+
+<div *ngIf="bookingType === bookingTypes.reservation" class="claim-tickets-warning mt-48px column-width-10">
+    <mat-icon class="has-text-orange mr-12px" aria-hidden="false" aria-label="title icon">warning</mat-icon>
+    <p class="m-0">
+        Tickets have to be bought 30 minutes before the start of the Event, otherwise the reservation will become
+        invalid
+        and the selected tickets can no longer be claimed.
+    </p>
+</div>
+
+<div class="button-group mt-48px">
+    <button mat-flat-button *ngIf="bookingType === bookingTypes.purchase" color="accent" (click)="onPrintTicketsClick()">Print Tickets</button>
+    <button mat-flat-button *ngIf="bookingType === bookingTypes.purchase" color="accent" (click)="onPrintInvoiceClick()">Print Invoice</button>
+    <button mat-flat-button color="primary" routerLink="/">Return Home</button>
+</div>
+
+<div #pdfs></div>

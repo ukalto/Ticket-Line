@@ -1,0 +1,79 @@
+.unlock {
+  background-color: #4CAF50;
+  color: white;
+}
+
+.lock {
+  background-color: #c51900;
+  color: white;
+}
+
+.center {
+  text-align: center;
+  margin-top: 48px;
+}
+
+.purple-button {
+  background-color: rgb(101,80,231);
+  color: white;
+}
+
+.black-button {
+  background-color: rgb(26, 23, 23);
+  color: white;
+}
+
+button {
+  margin: 0 12px;
+}
+
+button:first-of-type {
+  margin-left: 0;
+}
+
+button:last-of-type {
+  margin-right: 0;
+}
+
+.button-row {
+  margin: 48px 24px 24px 24px;
+}
+
+table {
+  width: 100%;
+}
+
+.mat-form-field {
+  font-size: 14px;
+  width: 100%;
+}
+
+td, th {
+  width: 25%;
+  text-align: center;
+}
+
+.div-row {
+  display: flex;
+  flex-direction: row;
+
+}
+
+::ng-deep .mat-sort-header-container {
+  place-content: center;
+}
+
+th.mat-header-cell {
+  text-align: center;
+}
+
+td:nth-child(1) {
+  text-align: left;
+}
+
+.refresh-button {
+  margin-top: 10px;
+  margin-left: 10px !important;
+}
+
+

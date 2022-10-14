@@ -1,0 +1,24 @@
+<h2 class="title" *ngIf="bookingType === 'purchase'">Pay for Tickets</h2>
+<h2 class="title" *ngIf="bookingType === 'reservation'">Reserve Tickets</h2>
+<div class="mdc-layout-grid px-0 pt-12px pb-0 mb-24px">
+  <div class="mdc-layout-grid__inner">
+    <div class="mdc-layout-grid__cell--span-6 center-vertically">
+      <app-booking-showing-info [eventId]="eventId" [showingId]="showingId">
+      </app-booking-showing-info>
+    </div>
+    <div class="mdc-layout-grid__cell--span-6 center-vertically align-right">
+      <app-price-info *ngIf="bookingInfo" [showingId]="showingId" [bookingInfo]="bookingInfo"></app-price-info>
+    </div>
+  </div>
+</div>
+
+<app-purchase
+  *ngIf="bookingType === 'purchase'"
+  [bookingInfo]="bookingInfo"
+  [showingId]="showingId"
+  (submitPurchase)="submit($event)"
+  (submitError)="submitWithError()"></app-purchase>
+<div class="button-group" *ngIf="bookingType === 'reservation'">
+  <button type="button" mat-flat-button color="accent" routerLink="/">Quit</button>
+  <button type="submit" mat-flat-button color="primary" (click)="confirmReservation()">Confirm Reservation</button>
+</div>

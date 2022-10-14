@@ -1,0 +1,139 @@
+<app-headline [icon]="'event'" [text]="'Shows'" [centered]="true"></app-headline>
+
+<div class="form-flex">
+  <form [formGroup]="showingForm" class="form-style" (submit)="filterShows()">
+    <div class="first-form-row">
+      <mat-form-field [style.width.px]="368" appearance="outline">
+        <mat-label>Event Title</mat-label>
+        <mat-icon matSuffix>local_fire_department</mat-icon>
+        <input type="text" matInput formControlName="eventTitle">
+      </mat-form-field>
+
+      <mat-form-field [style.width.px]="368" appearance="outline">
+        <mat-label>Location Name</mat-label>
+        <mat-icon matSuffix>location_on</mat-icon>
+        <input type="text" matInput formControlName="locationName">
+      </mat-form-field>
+    </div>
+
+    <div class="second-form-row">
+      <mat-form-field class="column-width-2" appearance="outline" (click)="dp.open()">
+        <mat-label>Date</mat-label>
+        <input matInput [matDatepicker]="dp" [min]="currentDate" formControlName="date" disabled>
+        <mat-datepicker-toggle matSuffix [for]="dp" [disabled]="false"></mat-datepicker-toggle>
+        <mat-datepicker #dp [disabled]="false"></mat-datepicker>
+        <button *ngIf="showingForm.controls['date'].value" matSuffix mat-icon-button aria-label="Clear"
+          (click)="clearDate()">
+          <mat-icon>close</mat-icon>
+        </button>
+      </mat-form-field>
+
+      <mat-form-field class="column-width-2" appearance="outline">
+        <mat-label>Start time</mat-label>
+        <mat-icon matSuffix *ngIf="!showingForm.controls['startTime'].value" (click)="startTime.open()">schedule
+        </mat-icon>
+        <input matInput [ngxTimepicker]="startTime" [format]="24" formControlName="startTime" readonly>
+        <ngx-material-timepicker #startTime [theme]="timePickerTheme"></ngx-material-timepicker>
+        <button *ngIf="showingForm.controls['startTime'].value" matSuffix mat-icon-button aria-label="Clear"
+          (click)="clearStartTime()">
+          <mat-icon>close</mat-icon>
+        </button>
+      </mat-form-field>
+
+      <mat-form-field class="column-width-2" appearance="outline">
+        <mat-label>End time</mat-label>
+        <mat-icon matSuffix *ngIf="!showingForm.controls['endTime'].value" (click)="endTime.open()">schedule</mat-icon>
+        <input matInput [ngxTimepicker]="endTime" [format]="24" formControlName="endTime" readonly>
+        <ngx-material-timepicker #endTime [theme]="timePickerTheme"></ngx-material-timepicker>
+        <button *ngIf="showingForm.controls['endTime'].value" matSuffix mat-icon-button aria-label="Clear"
+          (click)="clearEndTime()">
+          <mat-icon>close</mat-icon>
+        </button>
+      </mat-form-field>
+
+      <mat-form-field [style.width.px]="115" appearance="outline">
+        <mat-label>Min Price</mat-label>
+        <mat-icon matSuffix>euro</mat-icon>
+        <input type="number" min="0" matInput formControlName="minPrice" autocomplete="off">
+      </mat-form-field>
+
+      <mat-form-field [style.width.px]="115" appearance="outline">
+        <mat-label>Max Price</mat-label>
+        <mat-icon matSuffix>euro</mat-icon>
+        <input type="number" min="0" matInput formControlName="maxPrice" autocomplete="off">
+      </mat-form-field>
+    </div>
+
+    <div class="third-form-row">
+
+    </div>
+
+    <div class="form-buttons">
+      <button mat-flat-button class="reset-button form-btn" [disabled]="paramsEmpty" (click)="resetForm()">
+        Reset Filter
+      </button>
+      <button class="form-btn" type="submit" mat-flat-button color="primary">
+        <mat-icon matPrefix>search</mat-icon>
+        Apply Filter
+      </button>
+    </div>
+  </form>
+</div>
+
+<div *ngIf="!authenticationService.isLoggedIn()" class="center">
+  <mat-icon class="has-text-orange mr-12px" aria-hidden="false" aria-label="title icon">warning</mat-icon>
+  <a style="font-weight: 500; font-size: 16px">You need to login to book shows</a>
+  <button routerLink="/login" mat-flat-button color="primary" style="letter-spacing: 2px;">Login</button>
+</div>
+
+<div class="shows">
+  <h2>Results</h2>
+  <div class="mat-elevation-z8">
+    <table mat-table [dataSource]="dataSource">
+      <ng-container matColumnDef="date">
+        <th mat-header-cell *matHeaderCellDef>Date</th>
+        <td mat-cell *matCellDef="let row">{{row ? row.date : ''}}</td>
+      </ng-container>
+      <ng-container matColumnDef="eventTitle">
+        <th mat-header-cell *matHeaderCellDef>Event Title</th>
+        <td mat-cell *matCellDef="let row">{{row ? row.eventTitle : ''}}</td>
+      </ng-container>
+      <ng-container matColumnDef="time">
+        <th mat-header-cell *matHeaderCellDef>From-Till</th>
+        <td mat-cell *matCellDef="let row">{{row ? row.time : ''}}</td>
+      </ng-container>
+      <ng-container matColumnDef="location">
+        <th mat-header-cell *matHeaderCellDef>Location</th>
+        <td mat-cell *matCellDef="let row;">{{row ? row.location : ''}}</td>
+      </ng-container>
+      <ng-container matColumnDef="room">
+        <th mat-header-cell *matHeaderCellDef>Room</th>
+        <td mat-cell *matCellDef="let row;">{{row ? row.room : ''}}</td>
+      </ng-container>
+      <ng-container matColumnDef="pricing">
+        <th mat-header-cell *matHeaderCellDef>Pricing</th>
+        <td mat-cell *matCellDef="let row;">{{getPricingString(row)}}</td>
+      </ng-container>
+      <ng-container matColumnDef="bookNow">
+        <th mat-header-cell *matHeaderCellDef>Book now</th>
+        <td mat-cell *matCellDef="let row">
+          <button *ngIf="!(row?.bookedOut === true && authenticationService.isLoggedIn())"
+            [disabled]="!authenticationService.isLoggedIn()" mat-flat-button color="primary"
+            [routerLink]="'/booking/'+ row?.eventId + '/' + row?.id">Book
+          </button>
+          <button disabled mat-flat-button *ngIf="row?.bookedOut === true && authenticationService.isLoggedIn()">
+            Sold Out
+          </button>
+
+        </td>
+      </ng-container>
+      <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      <tr class="mat-row" *matNoDataRow>
+        <td class="mat-cell" colspan="6" id="error-message">No Shows found</td>
+      </tr>
+    </table>
+    <mat-paginator [pageSizeOptions]="pageSizeOptions" aria-label="Select page of shows" [pageIndex]="pageIndex"
+      [pageSize]="pageSize" (page)="changePaginator($event)"></mat-paginator>
+  </div>
+</div>

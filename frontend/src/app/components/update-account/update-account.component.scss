@@ -1,0 +1,39 @@
+form {
+  margin: auto;
+  width: 500px;
+  display: flex;
+  flex-direction: column;
+  margin-top: 48px;
+  &>*{
+    margin-bottom: 24px;
+  }
+}
+
+.mat-form-field {
+  align-self: center;
+  max-width: 324px;
+  width: 100%;
+}
+
+.mat-form-field-prefix {
+  margin-right: 10px;
+}
+
+.center-vertically{
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+}
+
+.grayed-out {
+ color: rgba(0, 0, 0, 0.33);
+}
+
+.grayed-out-label {
+  color: rgba(0, 0, 0, 0.5);
+}
+
+
+

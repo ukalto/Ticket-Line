@@ -1,0 +1,18 @@
+<div class="mb-24px">
+  <mat-divider></mat-divider>
+  <div class="card-container">
+    <div class="img-container">
+      <img [src]="newsEntry.imageRef" onerror="this.src='/assets/images/img.png'"/>
+    </div>
+    <div class="content-container py-8px">
+      <div>
+        <h3 class="mb-12px">{{newsEntry.title}}</h3>
+        <p class="summary-text">{{ (newsEntry.summary.length>180)? (newsEntry.summary | slice:0:180)+'...':(newsEntry.summary) }}</p>
+      </div>
+      <div class="has-text-right">
+        <button mat-flat-button routerLink="{{newsEntry.id}}">Read more ></button>
+      </div>
+    </div>
+  </div>
+  <mat-divider></mat-divider>
+</div>

@@ -1,0 +1,28 @@
+@startuml authorization
+
+title "Autorisierung mit JWT"
+
+participant "Client" as client
+participant "Server" as server
+
+client -> client: jwt = LocalStorage.get("jwt")
+client -> server: POST /api/v1/some-authenticated-endpoint\nHeader{ "Authorization": "Bearer <JWT>"}
+server -> server: signatureValid = verifySignature(jwt)
+
+alt signatureValid
+
+server -> server: roles = rolesFromToken(jwt)
+server -> server: isAuthorized = rolesMatchEndpoint(endpoint, jwt)
+
+    alt isAuthorized
+        server -> server: execute endpoint method
+        server -> client: response
+    else not isAuthorized
+        server -> client: 403 Forbidden
+    end
+else not signatureValid
+server -> client: 401 Unauthorized
+end
+
+@enduml
+

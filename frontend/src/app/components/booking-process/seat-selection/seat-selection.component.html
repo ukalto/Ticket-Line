@@ -1,0 +1,56 @@
+<a class="mt-24px" mat-flat-button color="grey" *ngIf="!purchaseReservation" routerLink="{{getEventUrlPath()}}">&lt; Event page</a>
+<a class="mt-24px back-button" mat-flat-button color="grey" *ngIf="purchaseReservation" routerLink="/booking-overview">&lt; Bookings</a>
+<h2 class="mt-12px mb-24px has-text-centered">Choose Place</h2>
+<div class="mdc-layout-grid px-0 pt-12px pb-0">
+    <div class="mdc-layout-grid__inner">
+        <div class="mdc-layout-grid__cell--span-6">
+            <p class="has-text-centered" *ngIf="!visualSeatingPlan">Loading seating plan...</p>
+            <app-seating-plan-visualization *ngIf="visualSeatingPlan" [enableSeatClicking]="true"
+                [enableSectorClicking]="false" [data]="" [enableNonSeatInputFields]="true"
+                (changedNonSeatInput)="onChangeStandingAreaTickets($event)" (clickedSeatEvent)="onClickSeat($event)"
+                [data]="visualSeatingPlan" [graySeatsAreClickableToo]="false"
+                [preSelectedNonSeats]="preLoadNonSeatsSpecifiers">
+            </app-seating-plan-visualization>
+            <div class="align-centered has-text-gray">
+                <span class="mr-12px center-vertically">
+                    <mat-icon class="mr-4px" aria-hidden="false" aria-label="seat">
+                        event_seat
+                    </mat-icon>
+                    Seat
+                </span>
+                <span class="center-vertically">
+                    <mat-icon aria-hidden="false" aria-label="standing-area">
+                        man
+                    </mat-icon>
+                    Standing place
+                </span>
+            </div>
+        </div>
+        <div class="mdc-layout-grid__cell--span-1"></div>
+        <div class="mdc-layout-grid__cell--span-4">
+            <h3 class="has-text-centered mt-12px">Ticket Overview</h3>
+            <p class="has-text-centered" *ngIf="!choseSeats()">No seats chosen</p>
+            <div *ngFor="let elem of areaPriceInfos" class="pricing-row">
+                <p>{{elem.ticketAmount + "x" + elem.pricePerTicket + "€ " + elem.sectorName}}</p>
+                <p>{{elem.totalPrice + "€"}}</p>
+            </div>
+            <hr>
+            <p *ngIf="choseSeats()" class="has-text-right mb-0">{{getTotalPrice() + "€"}}</p>
+            <div *ngIf="choseSeats()" class="button-group mt-24px">
+                <button *ngIf="!purchaseReservation" mat-flat-button type="button" color="accent"
+                    (click)="onSubmit(bookingTypeEnum.reservation)">Reserve</button>
+                <button mat-flat-button type="button" color="primary"
+                    (click)="onSubmit(bookingTypeEnum.purchase)">Buy</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="mdc-layout-grid p-0">
+    <div class="mdc-layout-grid__inner">
+        <div class="mdc-layout-grid__cell--span-10 bottom-grid">
+            <hr>
+            <app-booking-showing-info [eventId]="eventId" [showingId]="showingId">
+            </app-booking-showing-info>
+        </div>
+    </div>
+</div>

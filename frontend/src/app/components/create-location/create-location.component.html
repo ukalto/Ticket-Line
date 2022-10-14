@@ -1,0 +1,90 @@
+<button mat-flat-button routerLink="/administration" class="top-margin">&lt; Administration</button>
+
+<div class="center">
+  <form [formGroup]="locationForm" class="form-style">
+    <h2>Create Location</h2>
+    <mat-form-field class="full-width">
+      <mat-label>Location Name</mat-label>
+      <input type="text" matInput formControlName="name">
+      <mat-icon matSuffix>location_on</mat-icon>
+      <mat-error *ngIf="locationForm.controls.name.hasError('required')">
+        Location name required!
+      </mat-error>
+      <mat-error *ngIf="locationForm.controls.name.hasError('pattern')">
+        Location input must not contain digits!
+      </mat-error>
+    </mat-form-field>
+
+    <table class="full-width">
+      <tr>
+        <td>
+          <mat-form-field class="full-width">
+            <mat-label>Street</mat-label>
+            <input type="text" matInput formControlName="street">
+            <mat-icon matSuffix>signpost</mat-icon>
+            <mat-error *ngIf="locationForm.controls.street.hasError('required')">
+              Street required!
+            </mat-error>
+            <mat-error *ngIf="locationForm.controls.street.hasError('pattern')">
+              Street can not be blank!
+            </mat-error>
+          </mat-form-field>
+        </td>
+        <td>
+          <mat-form-field class="full-width">
+            <mat-label>Postal Code</mat-label>
+            <input type="number" matInput formControlName="postalCode">
+            <mat-icon matSuffix>markunread_mailbox</mat-icon>
+            <mat-error *ngIf="locationForm.controls.postalCode.hasError('required')">
+              Postal Code required!
+            </mat-error>
+            <mat-error *ngIf="locationForm.controls.postalCode.hasError('pattern')">
+              Postal Code must be at least 4 digits and digits only!
+            </mat-error>
+          </mat-form-field>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <mat-form-field class="full-width">
+            <mat-label>Town</mat-label>
+            <input type="text" matInput formControlName="town">
+            <mat-icon matSuffix>location_city</mat-icon>
+            <mat-error *ngIf="locationForm.controls.town.hasError('required')">
+              Town required!
+            </mat-error>
+            <mat-error *ngIf="locationForm.controls.town.hasError('pattern')">
+              Town input must not contain digits!
+            </mat-error>
+          </mat-form-field>
+        </td>
+        <td>
+          <mat-form-field class="full-width">
+            <mat-label>Country</mat-label>
+            <input type="text" matInput formControlName="country" [matAutocomplete]="auto">
+            <mat-icon matSuffix>flag</mat-icon>
+            <mat-autocomplete #auto="matAutocomplete">
+              <mat-option *ngFor="let country of filteredCountries | async" [value]="country">
+                <span>{{country}}</span>
+              </mat-option>
+            </mat-autocomplete>
+            <mat-error *ngIf="locationForm.controls.country.hasError('required')">
+              Country required!
+            </mat-error>
+            <mat-error *ngIf="locationForm.controls.country.hasError('countryInvalid')">
+              Please enter or select a valid country!
+            </mat-error>
+          </mat-form-field>
+        </td>
+      </tr>
+    </table>
+
+    <span><strong>Note:</strong> Seating plans can be added to this location after its creation.</span>
+    <div class="center-button">
+      <button mat-flat-button color="accent" class="button" type="button" routerLink="/administration">Cancel</button>
+      <button type="submit" mat-flat-button color="primary" (click)="createLocation()">Create</button>
+    </div>
+  </form>
+</div>
+
+

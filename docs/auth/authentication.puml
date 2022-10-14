@@ -1,0 +1,23 @@
+@startuml JWT Prozess
+
+title "Authenifizierung mit JWT"
+
+participant "Client" as client
+participant "Server" as server
+
+client -> server: POST /api/v1/authentication\n{ "email": ..., "password": ... }
+server -> server: credentialsValid = verifyCredentials(email, password)
+
+alt credentialsValid
+
+server -> server: roles = getRolesForUser(user)
+server -> server: jwt = createSignedToken(user, roles)
+
+server -> client: 200 OK \n jwt
+
+client -> client: LocalStorage.set("jwt", jwt)
+else not credentialsValid
+server -> client: 401 Unauthorized
+end
+
+@enduml

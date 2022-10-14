@@ -1,0 +1,43 @@
+<app-seat-selection
+  [purchaseReservation]="true"
+  (submitEvent)="submitSeats($event)"
+  [eventId]="reservationInfo.eventId"
+  [showingId]="reservationInfo.showingId"
+  [preLoadSeats]="reservationInfo.bookingInfo.bookedSeats"
+  [preLoadNonSeats]="reservationInfo.bookingInfo.bookedNonSeats"
+  [hidden]="seatsSelected"
+  *ngIf="infoPresent && !purchaseConfirmed">
+</app-seat-selection>
+<a class="mt-24px" mat-flat-button color="grey" *ngIf="seatsSelected" (click)="seatsSelected = false">&lt; Bookings</a>
+<h2 class="title" *ngIf="seatsSelected && !purchaseConfirmed">Pay for Tickets</h2>
+<div class="mdc-layout-grid px-0 pt-12px pb-0 mb-24px">
+  <div class="mdc-layout-grid__inner">
+    <div class="mdc-layout-grid__cell--span-6 center-vertically">
+      <app-booking-showing-info
+        *ngIf="seatsSelected && !purchaseConfirmed && infoPresent"
+        [eventId]="reservationInfo.eventId"
+        [showingId]="reservationInfo.showingId">
+      </app-booking-showing-info>
+    </div>
+    <div class="mdc-layout-grid__cell--span-6 center-vertically align-right">
+      <app-price-info
+        *ngIf="seatsSelected && !purchaseConfirmed && infoPresent"
+        [showingId]="reservationInfo.showingId"
+        [bookingInfo]="reservationInfo.bookingInfo"></app-price-info>
+    </div>
+  </div>
+</div>
+
+<app-purchase
+  *ngIf="seatsSelected && !purchaseConfirmed && infoPresent"
+  [bookingInfo]="reservationInfo.bookingInfo"
+  [bookingId]="bookingId"
+  [showingId]="reservationInfo.showingId"
+  (submitPurchase)="submitPurchase()"></app-purchase>
+
+<app-booking-confirmation
+  *ngIf="purchaseConfirmed && infoPresent"
+  [bookingInfo]="reservationInfo.bookingInfo"
+  [eventId]="reservationInfo.eventId"
+  [showingId]="reservationInfo.showingId"
+  [bookingType]="purchaseType"></app-booking-confirmation>

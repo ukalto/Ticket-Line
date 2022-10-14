@@ -1,0 +1,19 @@
+.bottom-grid {
+    grid-column-start: 2;
+}
+
+.button-group {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    column-gap: 24px;
+}
+
+.pricing-row{
+    display: flex;
+    justify-content: space-between;
+}
+
+.back-button {
+  margin-left: 90px;
+}

@@ -1,0 +1,142 @@
+enum user_type {
+  customer
+  administrator
+  super_administrator
+}
+
+table user {
+  id int [pk, increment]
+  email varchar [unique]
+  password varchar
+  type user_type
+}
+
+table customer {
+    id int [pk, ref: > user.id]
+    is_blocked boolean
+    failed_auth_attempts int
+    
+    card_number varchar
+}
+
+table administrator {
+    id int [pk, ref: > user.id]
+}
+
+table news_entry_read_by {
+    user_id int [ref: > customer.id]
+    news_id int [ref: > news_entry.id]
+}
+
+table news_entry {
+    id int [pk, increment]
+    title varchar
+    contents varchar
+    summary varchar
+    published_on datetime
+    published_by int [ref: > administrator.id]
+    image_ref varchar
+    event_id int [ref: > event.id]
+}
+
+enum purchase_type {
+  PURCHASE
+  CANCELLATION
+}
+
+table purchase {
+  invoice_number int [pk, increment]
+  purchased_at timestamp
+  booking_id int [ref: > booking.id]
+  purchase_type purchase_type
+}
+
+table location {
+  id int [pk, increment]
+  name varchar
+  street varchar
+  town varchar
+  country varchar
+  postal_code varchar
+}
+
+table artist {
+  id int [pk, increment]
+  first_name varchar
+  last_name varchar
+  artist_name varchar
+}
+
+table event {
+  id int [pk, increment]
+  title varchar
+  base_price decimal(10, 2)
+  category varchar // TODO: data type
+  duration duration
+  description varchar
+  performed_by int [ref: > artist.id]
+}
+
+table event_showing {
+  id int [pk, increment]
+  occurs_on datetime
+  performed_at int [ref: > show_room.id]
+  event_id int [ref: > event.id, pk]
+}
+
+table show_room {
+  id int [pk, increment]
+  name varchar
+  located_in int [ref: > location.id]
+  capacity int
+}
+
+table show_room_sector {
+  number int [pk]
+  show_room_id int [pk, ref: > show_room.id]
+  description varchar
+  capacity int
+}
+
+table show_room_row {
+  number int [pk]
+  show_room_id int [pk, ref: > show_room_sector.show_room_id]
+  show_room_sector int [pk, ref: > show_room_sector.number]
+}
+
+table show_room_seat {
+  number int [pk]
+  show_room_row int [pk, ref: > show_room_row.number]
+  show_room_id int [pk, ref: > show_room_row.show_room_id]
+  show_room_sector int [pk, ref: > show_room_row.show_room_sector]
+}
+
+table booking {
+ id int [pk, increment]
+ booked_by int [pk, ref: > customer.id]
+ booked_at timestamp
+ event_showing_id int [ref: > event_showing.id]
+ is_cancelled boolean
+}
+
+table booking_seat {
+  booking_id int [pk, ref: > booking.id]
+  show_room_seat int [pk, ref: > show_room_seat.number]
+  show_room_row int [pk, ref: > show_room_seat.show_room_row]
+  show_room_id int [pk, ref: > show_room_seat.show_room_id]
+  show_room_sector int [pk, ref: > show_room_seat.show_room_sector]
+}
+
+table booking_non_seat {
+  booking_id int [pk, ref: > booking.id]
+  show_room_sector int [pk, ref: > show_room_sector.number]
+  show_room_id int [pk, ref: > show_room_sector.show_room_id]
+  amount int
+}
+
+table sector_price_event_showing {
+  event_showing_id int [pk, ref: > event_showing.id]
+  show_room_id int [pk, ref: > show_room_sector.show_room_id]
+  show_room_sector int [pk, ref: > show_room_sector.number]
+  price decimal(10, 3)
+}

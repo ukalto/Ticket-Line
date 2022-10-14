@@ -1,0 +1,65 @@
+<button mat-flat-button (click)="back()" class="top-margin">&lt; Back</button>
+<div class="mt-24px padding-bottom" *ngIf="event !== null">
+  <div class="top-group">
+    <img *ngIf="event.file === ''" src="/assets/images/img.png">
+    <img *ngIf="event.file !== ''" [src]="imagePath">
+    <div class="information">
+      <div class="detail-title">
+        <h3>{{event?.title}}</h3>
+        <mat-chip-list>
+          <mat-chip>{{eventCategory?.displayName}}</mat-chip>
+        </mat-chip-list>
+      </div>
+      <p class="has-text-left">{{event?.description}}</p>
+    </div>
+  </div>
+  <div *ngIf="!authenticationService.isLoggedIn()" class="center">
+    <mat-icon class="has-text-orange mr-12px" aria-hidden="false" aria-label="title icon">warning</mat-icon>
+    <a style="font-weight: 500; font-size: 16px">You need to login to book shows</a>
+    <button routerLink="/login" mat-flat-button color="primary" style="letter-spacing: 2px;">Login</button>
+  </div>
+  <div class="shows">
+    <h2>All Shows</h2>
+    <div class="mat-elevation-z8">
+      <table mat-table [dataSource]="dataSource">
+        <ng-container matColumnDef="date">
+          <th mat-header-cell *matHeaderCellDef>Date</th>
+          <td mat-cell *matCellDef="let row">{{row ? row.date : ''}}</td>
+        </ng-container>
+        <ng-container matColumnDef="time">
+          <th mat-header-cell *matHeaderCellDef>From-Till</th>
+          <td mat-cell *matCellDef="let row">{{row ? row.time : ''}}</td>
+        </ng-container>
+        <ng-container matColumnDef="location">
+          <th mat-header-cell *matHeaderCellDef>Location</th>
+          <td mat-cell *matCellDef="let row;">{{row ? row.location : ''}}</td>
+        </ng-container>
+        <ng-container matColumnDef="room">
+          <th mat-header-cell *matHeaderCellDef>Room</th>
+          <td mat-cell *matCellDef="let row;">{{row ? row.room : ''}}</td>
+        </ng-container>
+        <ng-container matColumnDef="lowestPrice">
+          <th mat-header-cell *matHeaderCellDef>Lowest Price</th>
+          <td mat-cell *matCellDef="let row;">{{row && row.bookedOut === false ? (row.lowestPrice | currency:'EUR') : '-'}}</td>
+        </ng-container>
+        <ng-container matColumnDef="bookNow">
+          <th mat-header-cell *matHeaderCellDef>Book now</th>
+          <td mat-cell *matCellDef="let row" style="">
+            <button mat-flat-button *ngIf="row.bookedOut === true" disabled>Sold Out</button>
+            <button mat-flat-button *ngIf="!authenticationService.isLoggedIn() && row.bookedOut === false" disabled>Book</button>
+            <button mat-flat-button *ngIf="row.bookedOut === false && authenticationService.isLoggedIn()"
+                    color="primary" [routerLink]="'/booking/'+ eventId + '/' + row.id">Book
+            </button>
+          </td>
+        </ng-container>
+        <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        <tr class="mat-row" *matNoDataRow>
+          <td class="mat-cell" colspan="6" id="error-message">There are no Shows in this Event</td>
+        </tr>
+      </table>
+      <mat-paginator [pageSizeOptions]="pageSizeOptions" aria-label="Select page of shows"
+                     [pageIndex]="pageIndex" [pageSize]="pageSize" (page)="changePaginator($event)"></mat-paginator>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,31 @@
+form {
+  margin: auto;
+  width: 500px;
+  display: flex;
+  flex-direction: column;
+  margin-top: 48px;
+  &>*{
+    margin-bottom: 24px;
+  }
+}
+
+.center-button button {
+  margin-left: 6px;
+  margin-right: 6px;
+}
+
+.full-width {
+  width: 100%;
+}
+
+h1 {
+  margin-bottom: 48px;
+}
+
+.top-margin {
+  margin-top: 24px;
+}
+
+.mat-form-field-prefix {
+  margin-right: 10px;
+}

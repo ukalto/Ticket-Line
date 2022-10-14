@@ -1,0 +1,97 @@
+<div class="center pb-48px">
+  <app-headline [icon]="'local_fire_department'" [text]="'Events'" [centered]="true"></app-headline>
+  <mat-tab-group mat-align-tabs="center" animationDuration="0ms" [(selectedIndex)]="selectedTabIndex">
+
+    <mat-tab label="Top 10 Events">
+      <h2 class="mb-24px">Top 10 Events</h2>
+      <div class="topTen pb-48px">
+        <form [formGroup]="topTenForm" class="form-style">
+          <mat-form-field appearance="outline">
+            <mat-label>Category</mat-label>
+            <mat-icon matSuffix>category</mat-icon>
+            <mat-select type="text" formControlName="category" (selectionChange)="selectionChanged()">
+              <mat-option [value]="allCategories">All categories</mat-option>
+              <mat-option *ngFor="let category of categories" [value]="category.id">{{ category.displayName }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <app-top-ten-events-chart [data]="chartData"></app-top-ten-events-chart>
+        </form>
+      </div>
+
+    </mat-tab>
+    <mat-tab label="Search">
+      <h2 class="mb-24px">Search</h2>
+      <form [formGroup]="eventsForm" class="form-style mb-48px">
+        <div class="filter">
+          <mat-form-field class="column-width-5" appearance="outline">
+            <mat-label>Event name or content</mat-label>
+            <mat-icon matSuffix>text_fields</mat-icon>
+            <input type="text" matInput formControlName="eventNameOrContent">
+          </mat-form-field>
+          <mat-form-field class="column-width-3" appearance="outline">
+            <mat-label>Category</mat-label>
+            <mat-icon matSuffix>category</mat-icon>
+            <mat-select type="text" formControlName="category">
+              <mat-option [value]="null">All categories</mat-option>
+              <mat-option *ngFor="let category of categories" [value]="category.id">
+                {{ category.displayName }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <mat-form-field class="column-width-2" appearance="outline">
+            <mat-label>Duration</mat-label>
+            <mat-icon matSuffix (click)="durationPicker.open()">timer</mat-icon>
+            <input matInput [ngxTimepicker]="durationPicker" [format]="24" formControlName="duration" readonly>
+            <ngx-material-timepicker #durationPicker [theme]="timePickerTheme">
+            </ngx-material-timepicker>
+          </mat-form-field>
+        </div>
+        <div class="filter-buttons">
+          <button mat-flat-button class="reset-button mr-24px" [disabled]="!canReset" (click)="resetFilter()">
+            Reset Filter
+          </button>
+          <button type="submit" class="submit-button" mat-flat-button color="primary" (click)="find()">
+            <mat-icon matPrefix>search</mat-icon>
+            Apply Filter
+          </button>
+        </div>
+      </form>
+      <div class="search-results">
+        <h3 *ngIf="searchResults.length === 0">No events were found with the current filter!</h3>
+
+        <ng-container *ngFor="let event of searchResults; index as i;">
+          <mat-card *ngIf="event.hasShowingsInFuture" class="mb-48px">
+            <img [src]="imagePaths[i]" alt="Event image">
+            <div class="content has-text-left">
+              <div class="result-header">
+                <h3 class="mr-12px">{{event.title}}</h3>
+                <mat-chip-list *ngIf="categories.length > 0" class="margin-left">
+                  <mat-chip>{{categoryIdToName(event.categoryId)}}</mat-chip>
+                </mat-chip-list>
+              </div>
+              <p>{{event.description}}</p>
+              <p *ngIf="event.soldOut" class="sold-out-warning">
+                <mat-icon class="has-text-orange mr-12px" aria-hidden="false" aria-label="title icon">warning</mat-icon>
+                This event is currently sold out!
+              </p>
+              <p class="mb-0">
+                <a mat-flat-button color="primary" routerLink="{{'/events/'+event.id}}">Details & Booking</a>
+                <span class="ml-8px">
+                  {{'Duration: ' + event.durationHours + 'h '}}
+                  <ng-container *ngIf="event.durationMinutes !== 0">
+                    {{event.durationMinutes + 'm '}}
+                  </ng-container>
+                </span>
+              </p>
+            </div>
+          </mat-card>
+        </ng-container>
+
+        <button
+          *ngIf="!lastLoadMoreRequestIndicatesNoMoreEntries && searchResults.length !== 0"
+          mat-flat-button color="primary" (click)="loadMore()">Load more</button>
+      </div>
+    </mat-tab>
+  </mat-tab-group>
+</div>

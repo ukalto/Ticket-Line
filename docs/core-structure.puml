@@ -1,0 +1,28 @@
+@startuml Core Classes and Structures
+
+package "REST Layer" {
+    abstract class RestController
+}
+
+package "Service Layer" {
+    abstract class Service
+    abstract class Mapper
+}
+
+package "Persistence Layer" {
+    abstract class Repository
+    abstract class Entity
+}
+
+package "Layer Independent" {
+    abstract class DTO
+    abstract class Configuration
+}
+
+RestController "1" ---> "1..*" Mapper: mappt DTOs / Entities mit
+RestController "1" --> "0..*" Service: delegiert fachliche Logik an
+Service "1" ---> "0..*" Repository: persistiert & lädt Entites mit
+Service "1" --> "0..*" Entity: ändert Zustand
+RestController ---> DTO: serialisiert / deserialisiert
+
+@enduml

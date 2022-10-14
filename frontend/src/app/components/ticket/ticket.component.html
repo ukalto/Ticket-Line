@@ -1,0 +1,41 @@
+<div id="tickets" #tickets>
+  <div class="ticket" *ngFor="let ticket of ticketsInput">
+    <h3 class="ticket-header">Ticketline Inc.</h3>
+
+    <div class="ticket-body">
+      <div class="ticket-data">
+        <div class="ticket-data-line">
+          <div class="ticket-data-label">Date:</div>
+          <div class="ticket-data-value">{{ renderDate(ticket.startingTime) }}</div>
+        </div>
+        <div class="ticket-data-line">
+          <div class="ticket-data-label">Starting Time:</div>
+          <div class="ticket-data-value">{{ renderTime(ticket.startingTime) }}</div>
+        </div>
+        <div class="ticket-data-line">
+          <div class="ticket-data-label">Event:</div>
+          <div class="ticket-data-value">{{ ticket.eventName }}</div>
+        </div>
+        <div class="ticket-data-line">
+          <div class="ticket-data-label">Location:</div>
+          <div class="ticket-data-value">{{ ticket.locationName }}</div>
+        </div>
+        <div class="ticket-data-line">
+          <div class="ticket-data-label">Booked Spot:</div>
+          <div class="ticket-data-value">{{ ticket.printableSeatDescription }}</div>
+        </div>
+        <div class="ticket-data-line">
+          <div class="ticket-data-label">Ticket Price:</div>
+          <div class="ticket-data-value">{{ ticket.price.toFixed(2) }}€</div>
+        </div>
+      </div>
+
+      <div class="ticket-security">
+          <div class="ticket-security-label">Please keep this QR-Code and be ready to show it when the show starts!</div>
+          <div class="ticket-security-qr-code">
+            <qrcode [qrdata]="ticket.secret" [width]="512" [errorCorrectionLevel]="'M'" elementType="img"></qrcode>
+          </div>
+      </div>
+    </div>
+  </div>
+</div>

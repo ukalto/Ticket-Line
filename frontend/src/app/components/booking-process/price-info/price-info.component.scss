@@ -1,0 +1,28 @@
+p {
+    margin-bottom: 0;
+}
+
+.label {
+    font-size: 15px;
+    text-transform: uppercase;
+}
+
+td {
+    padding: 8px 0;
+
+    &:nth-child(1) {
+        padding-right: 24px;
+    }
+}
+
+.center-vert {
+    display: flex;
+    align-items: center;
+}
+
+tr {
+    &:not(:last-child) {
+        border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+    }
+}
+

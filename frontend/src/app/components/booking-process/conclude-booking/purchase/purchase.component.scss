@@ -1,0 +1,70 @@
+.title {
+  padding-top: 30px;
+}
+
+form {
+  margin: auto;
+  padding-top: 20px;
+  display: flex;
+  flex-direction: column;
+  &>*{
+    margin-bottom: 12px;
+  }
+  //border: 1px solid;
+  border-radius: 3px;
+}
+
+.mat-form-field {
+  align-self: auto;
+  padding-left: 30px;
+  max-width: 324px;
+  width: 100%;
+}
+
+.header-cursor {
+  cursor: default;
+}
+
+.parted-input {
+  display: flex;
+  flex-direction: row;
+  max-width: 162px;
+}
+
+.mat-form-field-prefix {
+  margin-right: 10px;
+}
+
+.grayed-out {
+  color: rgba(0, 0, 0, 0.33);
+}
+
+.grayed-out-label {
+  color: rgba(0, 0, 0, 0.5);
+}
+
+.button-group {
+  display: flex;
+  justify-content: right;
+  padding-top: 25px;
+}
+
+.checkbox {
+  padding-left: 30px;
+  padding-bottom: 10px;
+}
+
+.accordion-padding {
+  padding-top: 20px;
+}
+
+.mat-expansion-panel-header[aria-disabled=true] {
+  color: rgba(0,0,0,.87);
+}
+
+.panel-title {
+  font-size: 18px;
+}
+
+
+

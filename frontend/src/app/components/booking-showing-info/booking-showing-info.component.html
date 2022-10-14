@@ -1,0 +1,10 @@
+<div class="event-info">
+    <img *ngIf="!imageReference" src="https://www.viewhotels.jp/ryogoku/wp-content/uploads/sites/9/2020/03/test-img.jpg"
+        class="column-width-2" alt="">
+    <img *ngIf="imageReference" [src]="imageReference" class="column-width-2" alt="">
+    <div class="ml-12px">
+        <h3>{{eventName}}</h3>
+        <p>{{showingDate}}</p>
+        <p>{{locationName}}</p>
+    </div>
+</div>

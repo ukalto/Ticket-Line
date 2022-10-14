@@ -1,0 +1,62 @@
+<h3 class="has-text-centered mt-12px" [class.scale-down]="scaleDown">Stage</h3>
+<ng-container>
+    <div class="seating-plan-visuals" [class.scale-down]="scaleDown">
+        <div *ngFor="let sector of data.sectors; index as sectorIndex;">
+            <div class="add-sector-handle" (click)="addSector(sectorIndex-1 < 0? null : sectorIndex-1, sectorIndex)"
+                [class.is-hidden]="!enableAddSectorHandles">
+                <mat-icon aria-hidden="false" aria-label="seat">add_circle</mat-icon>
+                <div class="line"></div>
+                <mat-icon aria-hidden="false" aria-label="seat">add_circle</mat-icon>
+            </div>
+            <div class="sector" (click)="clickSector(sectorIndex)" [ngStyle]="{'background-color': sector.color}"
+                [class.hightlight-on-hover]="enableSectorClicking" [class.highlighted]="sector.isSelected && enableSectorClicking">
+                <ng-container *ngIf="sector.type === sectorType.seating">
+                    <div class="plan-row" *ngFor="let row of sector.rows; index as rowIndex;">
+                        <div class="seat" (click)="clickSeat(sectorIndex, rowIndex, seatIndex)"
+                            [class.hightlight-on-hover]="seatIsClickable(sectorIndex, rowIndex, seatIndex)"
+                            [class.highlighted]="seat.isSelected" *ngFor="let seat of row.seats; index as seatIndex;">
+                            <mat-icon *ngIf="!seat.grayedOut" aria-hidden="false" aria-label="seat">
+                                <span *ngIf="seat.visible">event_seat</span>
+                            </mat-icon>
+                            <mat-icon class="grayed-out" *ngIf="seat.grayedOut" aria-hidden="false" aria-label="seat">
+                                <span *ngIf="seat.visible">event_seat</span>
+                            </mat-icon>
+                        </div>
+                    </div>
+                </ng-container>
+                <ng-container *ngIf="sector.type === sectorType.standing">
+                    <div class="plan-standing-area">
+                        <mat-icon *ngIf="!enableNonSeatInputFields" aria-hidden="false" aria-label="standing-area">
+                            man
+                        </mat-icon>
+                        <ng-container *ngIf="enableNonSeatInputFields">
+                            <mat-icon class="ml-12px" aria-hidden="false" aria-label="standing-area">
+                                man
+                            </mat-icon>
+                            <form class="standin-area-form mx-12px">
+                                <p class="m-0">{{sector.vacancies + ' vacant'}}</p>
+                                <mat-form-field *ngIf="sector.vacancies > 0" class="column-width-1">
+                                    <mat-label>Ticket(s)</mat-label>
+                                    <input *ngIf="!(preSelectedNonSeats && sectorIndexToPreSelectedNonSeatsIndex(sectorIndex) !== null)" type="number" min="0" max="{{sector.vacancies}}"
+                                        matInput (change)="onChangeStandingAreaTicketAmount(sectorIndex, $event)">
+                                    <input *ngIf="preSelectedNonSeats && sectorIndexToPreSelectedNonSeatsIndex(sectorIndex) !== null" type="number" min="0" max="{{sector.vacancies}}"
+                                        matInput (change)="onChangeStandingAreaTicketAmount(sectorIndex, $event)"
+                                        [value]="preSelectedNonSeats[sectorIndexToPreSelectedNonSeatsIndex(sectorIndex)].amount">
+                                </mat-form-field>
+                            </form>
+                            <mat-icon class="mr-12px" aria-hidden="false" aria-label="standing-area">
+                                man
+                            </mat-icon>
+                        </ng-container>
+                    </div>
+                </ng-container>
+            </div>
+        </div>
+        <div (click)="addSector(data.sectors.length, null)" class="add-sector-handle"
+            [class.is-hidden]="!enableAddSectorHandles">
+            <mat-icon aria-hidden="false" aria-label="seat">add_circle</mat-icon>
+            <div class="line"></div>
+            <mat-icon aria-hidden="false" aria-label="seat">add_circle</mat-icon>
+        </div>
+    </div>
+</ng-container>

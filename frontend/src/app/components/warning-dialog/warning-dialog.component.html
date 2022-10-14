@@ -1,0 +1,14 @@
+<h3 mat-dialog-title><b>{{title}}</b></h3>
+<mat-divider></mat-divider>
+<div mat-dialog-content class="margin-top-bottom">
+  <p>{{text}}</p>
+  <p><b>Note: </b>{{note}}</p>
+  <b>This can not be undone!</b>
+</div>
+<mat-divider></mat-divider>
+<div mat-dialog-actions>
+  <button mat-flat-button mat-dialog-close (click)="this.dialogRef.close(false)">Cancel</button>
+  <button mat-flat-button mat-dialog-close color="warn" (click)="this.dialogRef.close(true)">
+    {{submitButton}}
+  </button>
+</div>

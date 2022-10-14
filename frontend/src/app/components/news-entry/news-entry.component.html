@@ -1,0 +1,12 @@
+<div class="container" *ngIf="newsEntry">
+  <button mat-flat-button class="back-button my-24px" routerLink="/news">< Back to News</button>
+  <img [src]="newsEntry.file" onerror="this.src='/assets/images/img.png'"/>
+  <div class="title-bar mt-24px">
+    <h2 class="mb-8px">{{newsEntry.title}}</h2>
+    <button mat-flat-button color="primary" (click)="redirectToEvent()">Event Page ></button>
+  </div>
+  <p class="mb-24px">Published on {{newsEntry.date}}</p>
+  <p id="news-content">{{newsEntry.contents}}</p>
+</div>
+
+

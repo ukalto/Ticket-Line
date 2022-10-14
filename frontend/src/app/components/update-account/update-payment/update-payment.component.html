@@ -1,0 +1,66 @@
+<form [formGroup]="updatePaymentForm">
+  <div class="mdc-layout-grid px-0">
+    <div class="mdc-layout-grid__inner">
+      <div class="mdc-layout-grid__cell--span-4 center-vertically">
+        <h2 class="grayed-out">Payment</h2>
+      </div>
+      <div class="mdc-layout-grid__cell--span-8">
+        <mat-label class="grayed-out-label">Owner</mat-label>
+        <mat-form-field class="mb-12px" floatLabel="never">
+          <mat-label>{{this.editUserDto.cardOwner}}</mat-label>
+          <mat-icon matPrefix class="mat-form-field-prefix">credit_card</mat-icon>
+          <input type="text" matInput formControlName="cardOwner" placeholder="Max Mustermann">
+        </mat-form-field>
+        <mat-label class="grayed-out-label">Number</mat-label>
+        <mat-form-field class="mb-12px" floatLabel="never">
+          <mat-label>{{this.editUserDto.cardNumber}}</mat-label>
+          <mat-icon matPrefix class="mat-form-field-prefix">credit_card</mat-icon>
+          <input maxlength="16" (keydown)="numberOnly($event)" matInput formControlName="cardNumber"
+                 placeholder="1234567890123456" [type]="hideNumber ? 'password' : 'text'">
+          <mat-icon matSuffix (click)="hideNumber = !hideNumber">{{hideNumber ? 'visibility_off'
+            : 'visibility'}}</mat-icon>
+          <mat-error *ngIf="updatePaymentForm.controls.cardNumber.hasError('pattern')">
+            Not a valid credit card number!
+          </mat-error>
+        </mat-form-field>
+        <mat-label class="grayed-out-label">Expiration Date</mat-label>
+        <mat-form-field class="mb-12px" floatLabel="never">
+          <mat-label>{{this.editUserDto.cardExpirationDate ? this.editUserDto.cardExpirationDate : 'MM/YY'}}</mat-label>
+          <mat-icon matPrefix class="mat-form-field-prefix">credit_card</mat-icon>
+          <input maxlength="5" type="text" matInput formControlName="cardExpirationDate"
+                 (keyup)="formatString($event)">
+          <mat-error *ngIf="updatePaymentForm.controls.cardExpirationDate.hasError('pattern')">
+            Not a valid expiration date (MM/YY)!
+          </mat-error>
+          <mat-error *ngIf="updatePaymentForm.controls.cardExpirationDate.hasError('cardExpired')">
+            The expiration date of this card is expired!
+          </mat-error>
+        </mat-form-field>
+        <mat-label class="grayed-out-label">CVV</mat-label>
+        <mat-form-field floatLabel="never">
+          <mat-label>{{this.editUserDto.cardCvv}}</mat-label>
+          <mat-icon matPrefix class="mat-form-field-prefix">credit_card</mat-icon>
+          <input maxlength="4" (keydown)="numberOnly($event)" matInput formControlName="cardCvv"
+                 [type]="hideCvv ? 'password' : 'text'">
+          <mat-icon matSuffix (click)="hideCvv = !hideCvv">{{hideCvv ? 'visibility_off'
+            : 'visibility'}}</mat-icon>
+          <mat-error *ngIf="updatePaymentForm.controls.cardCvv.hasError('pattern')">
+            Security number must be 3-4 digits!
+          </mat-error>
+        </mat-form-field>
+        <mat-error *ngIf="groupInput && submitted && updatePaymentForm.hasError('notFilledOutProperly')">
+          Please fill out all payment fields completely!
+        </mat-error>
+        <mat-error *ngIf="!groupInput && submitted && updatePaymentForm.hasError('noChanges')">
+          There are no changes to be submitted!
+        </mat-error>
+      </div>
+    </div>
+  </div>
+  <mat-divider></mat-divider>
+  <div class="button-group">
+    <button type="button" mat-flat-button color="warn" (click)="updatePayment(true)">Delete payment info</button>
+    <button type="button" mat-flat-button color="accent" (click)="back()">Cancel</button>
+    <button type="submit" mat-flat-button color="primary" (click)="updatePayment(false)">Save Changes</button>
+  </div>
+</form>

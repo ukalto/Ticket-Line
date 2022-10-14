@@ -1,0 +1,81 @@
+#invoice {
+    max-height: 29.7cm;
+    max-width: 21.0cm;
+
+    background-color: white;
+
+    padding-top: 2cm;
+    padding-bottom: 2cm;
+    padding-left: 2cm;
+    padding-right: 2cm;
+}
+
+.invoice-header {
+    border: 2px solid black;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    flex-wrap: wrap;
+    flex-direction: row;
+    flex-basis: 100%;
+
+    margin-bottom: 2cm;
+}
+
+.invoice-seller-data {
+    text-align: right;
+    
+    margin-bottom: 2cm;
+}
+
+.invoice-seller-data * {
+    margin-bottom: 0.1cm;
+}
+
+.invoice-seller-data .invoice-seller-data-row {
+    display: flex;
+    justify-content: right;
+}
+
+.invoice-seller-data-row-container {
+    width: 5cm;
+    display: flex;
+    justify-content: space-between;
+}
+
+.invoice-data {
+    margin-bottom: 2cm;
+}
+
+.invoice-data table {
+    width: 100%;
+
+    text-align: left;
+
+    border-collapse: collapse;
+}
+
+.invoice-data table th {
+    border-bottom: 2px solid black;
+}
+
+.invoice-data table td, .invoice-data table th {
+    padding-top: 0.3cm;
+    padding-bottom: 0.3cm;
+}
+
+.invoice-footer-line {
+    margin-bottom: 0.5cm;
+}
+
+#invoice-net-sum {
+    border-top: 1px solid black;
+    margin-top: 5px;
+}
+
+#invoice-gross-sum {
+    border-top: 3px solid black;
+    margin-top: 5px;
+}

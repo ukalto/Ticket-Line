@@ -1,0 +1,30 @@
+<app-headline [text]="'News'" [icon]="'description'" [centered]="true"></app-headline>
+
+<div class="news-container column-width-8">
+    <div class="tab-padding" *ngIf="!isLoggedIn()">
+        <h2 class="has-text-centered" *ngIf="newsEntries.length === 0" class="no-news-warn">No unread news found!</h2>
+        <div *ngFor="let newsEntry of newsEntries">
+            <app-news-entry-item [newsEntry]="newsEntry"></app-news-entry-item>
+        </div>
+    </div>
+    
+    <mat-tab-group *ngIf="isLoggedIn()" (selectedTabChange)="getReadNews()" class="mt-24px" mat-align-tabs="center" dynamicHeight animationDuration="0ms">
+        <mat-tab label="Unseen News">
+            <div class="pt-48px">
+                <h3 class="has-text-centered" *ngIf="newsEntries.length === 0" class="no-news-warn has-text-centered">No unread news found!</h3>
+                <div *ngFor="let newsEntry of newsEntries">
+                    <app-news-entry-item [newsEntry]="newsEntry"></app-news-entry-item>
+                </div>
+            </div>
+        </mat-tab>
+        <mat-tab label="Read News">
+            <div class="pt-48px">
+                <h3 class="has-text-centered" *ngIf="readNewsEntries.length === 0" class="no-news-warn has-text-centered">No read news found!</h3>
+                <div *ngFor="let readNewsEntry of readNewsEntries">
+                    <app-news-entry-item [newsEntry]="readNewsEntry"></app-news-entry-item>
+                </div>
+            </div>
+        </mat-tab>
+    </mat-tab-group>
+</div>
+

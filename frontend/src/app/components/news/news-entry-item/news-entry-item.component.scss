@@ -1,0 +1,29 @@
+.card-container {
+  position: relative;
+  display: flex;
+  padding: 0;
+  
+
+  $img-width: 155px;
+
+  img {
+    width: $img-width;
+    height: 100%;
+    object-fit: cover;
+    position: absolute;
+    left: 0;
+  }
+
+  .content-container {
+    height: $img-width;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding-left: $img-width + 12px;
+  }
+
+  .summary-text {
+    height: 3em;
+  }
+}

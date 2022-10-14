@@ -1,0 +1,36 @@
+form {
+  margin: auto;
+  width: 500px;
+  display: flex;
+  flex-direction: column;
+  margin-top: 48px;
+  &>*{
+    margin-bottom: 24px;
+  }
+}
+
+.mat-form-field {
+  align-self: center;
+  max-width: 324px;
+  width: 100%;
+}
+
+.center-button {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 24px;
+}
+
+.mat-form-field-prefix {
+  margin-right: 10px;
+}
+
+.yellow-button {
+  background-color: rgb(251, 140, 0);
+  color: white;
+}
+
+.purple-button {
+  background-color: rgb(101, 80, 231);
+  color: white;
+}

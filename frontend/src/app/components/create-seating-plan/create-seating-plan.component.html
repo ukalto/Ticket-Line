@@ -1,0 +1,111 @@
+<!-- Back Button -->
+<a class="mt-24px" mat-flat-button color="grey" routerLink="/administration">&lt; Administration</a>
+
+<!-- Title -->
+<h2 class="has-text-centered mt-12px">Create Seating Plan</h2>
+
+<!-- Name and location inputs -->
+<form [formGroup]="planForm" class="horizontal-element-group align-centered mt-24px">
+  <mat-form-field class="mr-12px column-width-4">
+    <mat-label>Seating plan name</mat-label>
+    <input matInput formControlName="name">
+    <mat-error>
+      You must choose a location
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field class="column-width-4">
+    <mat-label>Location</mat-label>
+    <input matInput formControlName="location" placeholder="Pick one" [matAutocomplete]="auto">
+    <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayWith"
+                      (optionSelected)="onSelected($event.option.value)">
+      <mat-option *ngFor="let location of filteredLocations" [value]="location">
+        {{location.name}}
+      </mat-option>
+    </mat-autocomplete>
+    <mat-error>
+      You must choose a location
+    </mat-error>
+  </mat-form-field>
+
+</form>
+
+<!-- Editor -->
+<mat-tab-group class="mt-24px" mat-align-tabs="center" animationDuration="0ms">
+  <mat-tab label="Edit Layout">
+    <div class="mdc-layout-grid px-0">
+      <div class="mdc-layout-grid__inner">
+        <div class="mdc-layout-grid__cell--span-7">
+          <app-seating-plan-visualization [enableSeatClicking]="false" [enableSectorClicking]="true"
+                                          [enableAddSectorHandles]="true" [data]="seatingPlanVisuals"
+                                          (newSectorEvent)="addSector($event)"
+                                          (clickedSectorEvent)="selectSector($event)">
+          </app-seating-plan-visualization>
+        </div>
+        <div class="mdc-layout-grid__cell--span-5">
+          <h3 class="has-text-centered mt-12px">Options</h3>
+          <form [formGroup]="sectorForm" class="wirebox align-centered">
+            <div>
+              <div>
+                <mat-form-field class="mr-12px column-width-2">
+                  <mat-label>Sector name</mat-label>
+                  <input matInput formControlName="name">
+                </mat-form-field>
+                <mat-form-field class="mr-12px column-width-2">
+                  <mat-label>Color</mat-label>
+                  <input matInput type="color" formControlName="color">
+                </mat-form-field>
+              </div>
+              <div>
+                <mat-form-field class="mr-12px column-width-2">
+                  <mat-label>Sector type</mat-label>
+                  <mat-select formControlName="type">
+                    <mat-option value="seating">Seating</mat-option>
+                    <mat-option value="standing">Standing</mat-option>
+                  </mat-select>
+                </mat-form-field>
+                <ng-container *ngIf="getTypeOfSelectedSector() === sectorTypeEnum.standing">
+                  <mat-form-field class="column-width-1">
+                    <mat-label>Capacity</mat-label>
+                    <input matInput type="number" formControlName="capacity">
+                  </mat-form-field>
+                </ng-container>
+                <ng-container *ngIf="getTypeOfSelectedSector() === sectorTypeEnum.seating">
+                  <mat-form-field class="mr-12px column-width-1">
+                    <mat-label>Columns</mat-label>
+                    <input matInput type="number" formControlName="columns" [min]="1" [max]="14">
+                  </mat-form-field>
+                  <mat-form-field class="column-width-1">
+                    <mat-label>Rows</mat-label>
+                    <input matInput type="number" formControlName="rows" [min]="1" [max]="20">
+                  </mat-form-field>
+                </ng-container>
+              </div>
+              <div>
+                <ng-container *ngIf="seatingPlan.sectors.length <= 1">
+                  <button type="button" disabled mat-flat-button color="warn">Delete sector</button>
+                </ng-container>
+                <ng-container *ngIf="seatingPlan.sectors.length > 1">
+                  <button type="button" (click)="deleteSelectedSector()" mat-flat-button color="warn">
+                    Delete sector
+                  </button>
+                </ng-container>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </mat-tab>
+  <mat-tab label="Enable/Disable Seats">
+    <app-seating-plan-visualization [enableSeatClicking]="true" [enableSectorClicking]="false"
+                                    [data]="seatingPlanVisuals" (clickedSeatEvent)="toggleSeatActivation($event)">
+    </app-seating-plan-visualization>
+  </mat-tab>
+</mat-tab-group>
+
+<!-- Bottom buttons -->
+<div class="align-right mt-48px pb-48px">
+  <button mat-flat-button color="accent" class="button" type="button" routerLink="/administration">Cancel</button>
+  <button type="submit" mat-flat-button class="button" (click)="create()" color="primary">Create</button>
+</div>

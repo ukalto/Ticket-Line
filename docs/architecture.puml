@@ -1,0 +1,21 @@
+@startuml architecture
+
+title Ticketline Softwarearchitektur
+
+package "Backend" as backend {
+    component Serveranwendung <<Spring Boot Application>> as server
+    database PostgreSQL <<RDBMS>> as postgresql
+
+    server -> postgresql: persisiert in
+
+    interface REST
+    REST - [server]
+}
+
+package Frontend as frontend {
+    component Webanwendung <<Angular SPA>> as web
+
+    web --> REST: interagiert mit Backend über
+}
+
+@enduml

@@ -1,0 +1,13 @@
+.event-info {
+    display: flex;
+    >div{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+}
+
+img{
+    object-fit: cover;
+    min-height: 156px;
+}

@@ -1,0 +1,53 @@
+<a class="mt-24px" mat-flat-button color="grey" routerLink="/administration">&lt; Administration</a>
+<h2 class="center mb-48px">Create News</h2>
+<form class="container" [formGroup]="createNewsForm">
+  <mat-form-field>
+    <mat-label>Title</mat-label>
+    <input matInput formControlName="title" placeholder="Title of News Entry">
+    <mat-error *ngIf="createNewsForm.controls.title.hasError('pattern')">Only the following characters are allowed: 0-9,A-Z,a-z,ä,Ä,ö,Ö,ü,Ü,ß</mat-error>
+    <mat-error *ngIf="createNewsForm.controls.title.hasError('minLength') || createNewsForm.controls.title.hasError('required')">
+      The title has to be at least 2 characters long
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Summary</mat-label>
+    <textarea matInput formControlName="summary" rows="3" placeholder="Short Summary of the Event"></textarea>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Content</mat-label>
+    <textarea matInput formControlName="contents" rows="7"></textarea>
+    <mat-error>The content has to be at least 10 characters long</mat-error>
+  </mat-form-field>
+
+  <div class="bottom-group">
+    <div class="image-row">
+      <button mat-flat-button color="accent" class="upload-button" type="button" (click)="redirectFileUploadClick()">
+        Upload image
+        <mat-icon matSuffix>upload</mat-icon>
+      </button>
+      <mat-form-field class="file-upload">
+        <ngx-mat-file-input placeholder="" formControlName="imageRef" [accept]="'.png,.jpg,.jpeg'" (click)="redirectFileUploadClick()" #uploadButton>
+        </ngx-mat-file-input>
+      </mat-form-field>
+      <button color="warn" mat-mini-fab [disabled]="createNewsForm.controls.imageRef.value === ''" (click)="createNewsForm.controls.imageRef.setValue('')">
+        <mat-icon>close</mat-icon>
+      </button>
+    </div>
+
+    <mat-form-field>
+      <mat-label>Related Event</mat-label>
+      <mat-select formControlName="eventId">
+        <mat-option *ngFor="let event of events" value="{{event.id}}">{{event.title}}</mat-option>
+      </mat-select>
+      <mat-error>You must select a related Event</mat-error>
+    </mat-form-field>
+  </div>
+  <div>
+    <button mat-flat-button color="primary" class="button" (click)="onSubmit()">Create</button>
+    <button mat-flat-button color="accent" class="button" (click)="goBack()">Cancel</button>
+  </div>
+
+</form>
+

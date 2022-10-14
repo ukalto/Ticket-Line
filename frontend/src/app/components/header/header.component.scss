@@ -1,0 +1,35 @@
+.nav-caption {
+  display: inline-block;
+  padding-left: 4px;
+}
+
+.nav-start{
+  display: flex;
+  align-items: center;
+}
+
+.nav-end {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  width: 100%;
+}
+
+.logo-text {
+  font-family: 'Oleo Script', cursive;
+  font-size: 32px;
+  margin-right: 24px;
+}
+
+.mat-button{
+  padding: 0 12px;
+}
+
+.central-search {
+  font: 400 14px / 20px Roboto, "Helvetica Neue", sans-serif!important;
+  margin-left: 12px;
+}
+
+.central-search ::ng-deep .mat-form-field-wrapper{
+  margin-bottom: -1.25em;
+}

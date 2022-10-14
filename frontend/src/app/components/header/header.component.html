@@ -1,0 +1,75 @@
+<mat-toolbar color="primary">
+  <mat-toolbar-row class="nav-layout">
+    <a routerLink="/" class="my-nav-link">
+      <h1 class="logo-text">Ticketline Inc.</h1>
+    </a>
+    <div class="nav-start">
+      <button mat-button routerLink="/news">
+        <mat-icon>home</mat-icon>
+        <span class="nav-caption">Home</span>
+      </button>
+      <button mat-button routerLink="/events">
+        <mat-icon>local_fire_department</mat-icon>
+        <span class="nav-caption">Events</span>
+      </button>
+      <button mat-button routerLink="/shows">
+        <mat-icon>event</mat-icon>
+        <span class="nav-caption">Shows</span>
+      </button>
+      <button mat-button routerLink="/artists">
+        <mat-icon>star</mat-icon>
+        <span class="nav-caption">Artists</span>
+      </button>
+      <button mat-button routerLink="/locations">
+        <mat-icon>location_on</mat-icon>
+        <span class="nav-caption">Locations</span>
+      </button>
+      <form>
+        <mat-form-field class="central-search" appearance="fill">
+          <mat-icon matPrefix>search</mat-icon>
+          <mat-label>Search for Event</mat-label>
+          <input matInput type="text" [matAutocomplete]="auto" #input>
+          <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+            <mat-option *ngFor="let event of filteredEvents | async" (onSelectionChange)="eventDetails(event.id)">
+              {{event.title}}
+            </mat-option>
+          </mat-autocomplete>
+        </mat-form-field>
+      </form>
+    </div>
+    <div class="nav-end">
+      <button mat-button routerLink="/administration" *ngIf="authService.isAdmin()">
+        <mat-icon>admin_panel_settings</mat-icon>
+        <span class="nav-caption">Administration</span>
+      </button>
+      <button mat-button [matMenuTriggerFor]="menuAccount">
+        <mat-icon>account_circle</mat-icon>
+        <span class="nav-caption">{{authService.getUserName()}}</span>
+      </button>
+      <mat-menu #menuAccount>
+        <button mat-menu-item routerLink="/edit-account" *ngIf="authService.isLoggedIn()">
+          <mat-icon>manage_accounts</mat-icon>
+          <span>Settings</span>
+        </button>
+        <button mat-menu-item routerLink="/booking-overview" *ngIf="authService.isLoggedIn()">
+          <mat-icon>assignment</mat-icon>
+          <span>My Bookings</span>
+        </button>
+        <button mat-menu-item routerLink="/register" *ngIf="!authService.isLoggedIn()">
+          <mat-icon>app_registration</mat-icon>
+          <span>Register</span>
+        </button>
+        <button mat-menu-item routerLink="/login" *ngIf="!authService.isLoggedIn()">
+          <mat-icon class="material-icons-outlined">
+            login
+          </mat-icon>
+          <span>Login</span>
+        </button>
+        <button mat-menu-item routerLink="/" (click)="authService.logout()" *ngIf="authService.isLoggedIn()">
+          <mat-icon>logout</mat-icon>
+          <span>Logout</span>
+        </button>
+      </mat-menu>
+    </div>
+  </mat-toolbar-row>
+</mat-toolbar>

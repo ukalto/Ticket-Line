@@ -1,0 +1,37 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    max-width: 600px;
+}
+
+.mat-black {
+    background: black;
+    color: white;
+}
+
+.bottom-group {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+}
+
+.button {
+    margin-left: 10px;
+    float: right;
+}
+
+.top-margin {
+    margin-top: 24px;
+  }
+
+  .image-row {
+    display: flex;
+    align-items: baseline;
+    justify-content: center;
+    margin-top: 24px;
+  }
+
+  .upload-button {
+    margin-right: 12px;
+  }
+

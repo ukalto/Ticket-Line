@@ -1,0 +1,106 @@
+@use 'node_modules/@angular/material/index' as mat;
+@import "./variables.scss";
+
+// TYPOGRAPHY -----------------------------------------------------------------
+
+$my-font-family: Roboto, "Helvetica Neue", sans-serif;
+
+$my-typography: mat.define-typography-config(
+  $headline: mat.define-typography-level(48px, 60px, 400),
+  $title: mat.define-typography-level(34px, 40px, 400),
+  $subheading-2: mat.define-typography-level(20px, 32px, 400),
+);
+
+@include mat.core($my-typography);
+
+// COLOR ----------------------------------------------------------------------
+
+$opaque-black: rgba(black, 0.87);
+
+$primary-palette: (
+  50: #ece6fb,
+  100: #cdc2f5,
+  200: #aa99f0,
+  300: #856feb,
+  400: #6450e7,
+  500: #3a31e2,
+  600: #262ddc,
+  700: #0026d3,
+  800: #0020cd,
+  900: #0016be,
+  contrast: (50: $opaque-black,
+    100: $opaque-black,
+    200: $opaque-black,
+    300: $opaque-black,
+    400: white,
+    500: white,
+    600: white,
+    700: white,
+    800: white,
+    900: white,
+  )
+);
+
+$secondary-palette: (
+  50: #fafafa,
+  100: #f5f5f5,
+  200: #eeeeee,
+  300: #e0e0e0,
+  400: #bdbdbd,
+  500: #9e9e9e,
+  600: #757575,
+  700: #616161,
+  800: #424242,
+  900: #212121,
+  contrast: (50: $opaque-black,
+    100: $opaque-black,
+    200: $opaque-black,
+    300: $opaque-black,
+    400: $opaque-black,
+    500: $opaque-black,
+    600: white,
+    700: white,
+    800: white,
+    900: white,
+  )
+);
+
+$warn-palette: (
+  50: #fce8e6,
+  100: #ffc9b8,
+  200: #ffa58b,
+  300: #ff805c,
+  400: #ff6238,
+  500: #ff4210,
+  600: #f93c0c,
+  700: #eb3505,
+  800: #dd2c00,
+  900: #c51900,
+  contrast: (50: $opaque-black,
+    100: $opaque-black,
+    200: $opaque-black,
+    300: $opaque-black,
+    400: $opaque-black,
+    500: $opaque-black,
+    600: black,
+    700: black,
+    800: white,
+    900: white,
+  )
+);
+
+
+$my-primary: mat.define-palette($primary-palette, 400);
+$my-accent: mat.define-palette($secondary-palette, 900);
+$my-warn: mat.define-palette($warn-palette, 800);
+
+
+$my-theme: mat.define-light-theme((
+  color: (
+    primary: $my-primary,
+    accent: $my-accent,
+    warn: $my-warn,
+  )
+));
+
+@include mat.all-component-themes($my-theme);

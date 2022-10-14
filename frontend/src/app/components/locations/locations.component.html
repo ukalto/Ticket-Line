@@ -1,0 +1,104 @@
+<app-headline [icon]="'location_on'" [text]="'Locations'" [centered]="true"></app-headline>
+
+<div class="center">
+  <form [formGroup]="filterLocations" class="form-style">
+    <p>
+      <mat-form-field appearance="outline" class="example-full-width">
+        <mat-label>Location Name</mat-label>
+        <mat-icon matSuffix>location_on</mat-icon>
+        <input type="text" matInput formControlName="name">
+      </mat-form-field>
+      <mat-form-field appearance="outline" class="example-full-width">
+        <mat-label>Street</mat-label>
+        <mat-icon matSuffix>signpost</mat-icon>
+        <input type="text" matInput formControlName="street">
+      </mat-form-field>
+    </p>
+    <table>
+      <tr>
+        <td>
+          <mat-form-field appearance="outline">
+            <mat-label>Country</mat-label>
+            <mat-icon matSuffix>flag</mat-icon>
+            <input type="text" matInput formControlName="country" [matAutocomplete]="auto">
+            <mat-autocomplete #auto="matAutocomplete">
+              <mat-option *ngFor="let country of filteredCountries | async" [value]="country">
+                <span>{{country}}</span>
+              </mat-option>
+            </mat-autocomplete>
+          </mat-form-field>
+        </td>
+        <td>
+          <mat-form-field appearance="outline">
+            <mat-label>Town</mat-label>
+            <mat-icon matSuffix>location_city</mat-icon>
+            <input type="text" matInput formControlName="town">
+          </mat-form-field>
+        </td>
+        <td>
+          <mat-form-field appearance="outline">
+            <mat-label>Postal Code</mat-label>
+            <mat-icon matSuffix>markunread_mailbox</mat-icon>
+            <input type="number" matInput formControlName="postalCode">
+          </mat-form-field>
+        </td>
+      </tr>
+    </table>
+    <div class="center-button">
+      <button mat-flat-button class="reset-button" [disabled]="resetFilterOff" (click)="resetFilter()">
+        Reset Filter
+      </button>
+      <button mat-flat-button color="primary" (click)="applyFilter()">
+        <mat-icon matPrefix>search</mat-icon>
+        Apply Filter
+      </button>
+    </div>
+  </form>
+</div>
+
+<div class="expansion-panel">
+  <mat-card *ngIf="locationEvents.length === 0">
+    <h3>No locations were found with the current filter!</h3>
+  </mat-card>
+  <mat-accordion>
+    <mat-expansion-panel *ngFor="let location of locationEvents" [disabled]="location.events.length === 0">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <h3>{{location.name}}, {{location.street}}, {{location.postalCode}} {{location.town}}
+            , {{location.country}}</h3>
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      <div class="search-results">
+        <mat-card *ngFor="let event of location.events" class="mb-24px">
+          <img *ngIf="event.imageReference" [src]="extractImage(event.imageReference)" class="column-width-2" alt="Event Picture">
+          <img *ngIf="!event.imageReference" src="/assets/images/img.png" class="column-width-2" alt="No Picture">
+          <div class="content has-text-left">
+            <div class="result-header">
+              <h3 class="mr-12px">{{event.title}}</h3>
+              <mat-chip-list class="margin-left">
+                <mat-chip>{{event.category}}</mat-chip>
+              </mat-chip-list>
+            </div>
+            <p>{{event.description}}</p>
+            <p *ngIf="event.soldOut" class="sold-out-warning">
+              <mat-icon class="has-text-orange mr-12px" aria-hidden="false" aria-label="title icon">warning</mat-icon>
+              This event is currently sold out!
+            </p>
+            <p class="mb-0">
+              <button mat-flat-button color="primary" (click)="detailsAndBooking(event.id)">
+                Details & Booking
+              </button>
+            </p>
+          </div>
+        </mat-card>
+      </div>
+    </mat-expansion-panel>
+  </mat-accordion>
+</div>
+
+<div class="center-load-more">
+  <button *ngIf="locationEvents.length < totalElements"
+          mat-flat-button color="primary" (click)="loadMore()">Load more
+  </button>
+</div>
+

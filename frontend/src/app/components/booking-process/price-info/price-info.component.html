@@ -1,0 +1,22 @@
+<table>
+    <tr>
+        <td class="label">Tickets</td>
+        <td>{{ticketAmount}}</td>
+    </tr>
+    <tr>
+        <td class="label">Ticket Categories</td>
+        <td>
+            <p *ngFor="let category of categories">{{category}}</p>
+        </td>
+    </tr>
+    <tr>
+        <td class="label">Places</td>
+        <td>
+            <p *ngFor="let place of places">{{place}}</p>
+        </td>
+    </tr>
+    <tr>
+        <td class="label">Price</td>
+        <td>{{totalPrice + ' €'}}</td>
+    </tr>
+</table>

@@ -1,0 +1,5 @@
+{
+  "adminUser": "admin@gmail.com",
+  "adminPw": "password",
+  "baseUrl": "localhost:4200/#/login"
+}

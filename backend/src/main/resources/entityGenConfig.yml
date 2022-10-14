@@ -1,0 +1,7 @@
+jdbcSettings:
+  url: "jdbc:postgresql://localhost:5432/ticket_line"
+  username: "postgres"
+  password: "postgres"
+  driverClassName: "org.postgresql.Driver"
+
+packageName: "at.ac.tuwien.sepm.groupphase.backend.entity"

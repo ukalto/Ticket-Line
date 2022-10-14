@@ -1,0 +1,27 @@
+@startuml modules
+
+package backend {
+    [service] as backend_service
+    [endpoint]
+    [entity]
+    [exception]
+    [repository]
+    [security]
+    [config]
+
+    endpoint --> backend_service: use
+    backend_service -> entity: use
+    repository --> entity: use
+    backend_service --> repository: use
+}
+
+package frontend {
+    [service] as service_frontend
+    [dto]
+    [components]
+
+    components -> service_frontend: use
+    service_frontend --> dto: use
+}
+
+@enduml

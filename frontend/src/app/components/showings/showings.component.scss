@@ -1,0 +1,164 @@
+.center {
+  align-items: center;
+  text-align: center;
+  margin-top: 24px;
+}
+
+h3 {
+  margin-right: 36px;
+  font-size: 24px;
+  font-weight: 500;
+}
+
+.shows {
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: column;
+  padding-bottom: 40px;
+}
+
+table {
+  width: 100%;
+  text-align: start;
+}
+
+td, th {
+  width: 17%;
+  margin: 0;
+}
+
+.mat-form-field {
+  font-size: 14px;
+  // width: 100%;
+}
+
+.form-flex {
+  margin-top: 30px;
+  display: flex;
+  justify-content: center;
+}
+
+.first-form-row {
+  display: flex;
+  align-items: center;
+  &>.mat-form-field:not(:last-child){
+    margin-right: 12px;
+  }
+}
+
+.second-form-row {
+  display: flex;
+  justify-content: center;
+  &>.mat-form-field:not(:last-child){
+    margin-right: 12px;
+  }
+}
+
+.third-form-row {
+  display: flex;
+  justify-content: center;
+  &>.mat-form-field:not(:last-child){
+    margin-right: 12px;
+  }
+}
+
+.form-buttons{
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+.reset-button {
+  background-color: rgb(251, 140, 0);
+  color: white;
+  margin-right: 12px;
+  margin-left: 27px;
+}
+
+h2 {
+  font-weight: 400;
+  align-self: flex-start;
+}
+
+.information {
+  display: flex;
+  flex-direction: column;
+  margin-left: 24px;
+  align-items: flex-start;
+}
+
+.information:last-child {
+  margin-right: 0;
+}
+
+.information a {
+  font-size: 16px;
+  font-weight: 400;
+}
+
+.detail-title {
+  display: flex;
+  flex-direction: row;
+  margin-top: 12px;
+}
+
+.top-margin {
+  margin-top: 24px;
+}
+
+.form-style {
+  text-align: center;
+  display: inline-block;
+}
+
+input:disabled {
+  color: black;
+}
+
+.top-group {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  margin-bottom: 48px;
+}
+
+img {
+  width: 250px;
+  height: 200px;
+}
+
+.bookedOutButton {
+  background-color: lightgray;
+  color: gray;
+}
+
+#error-message {
+  text-align: center;
+}
+
+.center {
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  flex-direction: row;
+  margin-top: 24px;
+  margin-bottom: 24px;
+}
+
+.center > *{
+  margin-left: 12px;
+  margin-right: 12px;
+}
+
+td, th {
+  text-align: center;
+}
+
+th.mat-header-cell {
+  text-align: center;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}

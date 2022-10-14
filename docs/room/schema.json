@@ -1,0 +1,54 @@
+{
+    "name": "Saal 1",
+    "location_ref": "1234",
+    "sectors": [
+        {
+            "id": 1,
+            "type": "Premium",
+            "price_factor": "1.30"
+        },
+        {
+            "id": 2,
+            "type": "Standard",
+            "price_factor": "1"
+        }
+    ],
+    "rows": [
+        {
+            "row_number": 1,
+            "sector_ref": 1,
+            "seats": [
+                {
+                    "seat_number": 1,
+                    "type": "Sitting"
+                },
+                {
+                    "seat_number": 2,
+                    "type": "Standing"
+                },
+                {
+                    "seat_number": 3,
+                    "type": "Sitting"
+                }
+            ]
+        },
+        {
+            "row_number": 2,
+            "sector_ref": 2,
+            "seats": [
+                {
+                    "seat_number": 1,
+                    "type": "Sitting"
+                },
+                {
+                    "seat_number": 2,
+                    "type": "Sitting"
+                },
+                {
+                    "seat_number": 3,
+                    "type": "Sitting"
+                }
+            ]
+        }
+    ]
+}

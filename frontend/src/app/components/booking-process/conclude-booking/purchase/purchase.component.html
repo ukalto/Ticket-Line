@@ -1,0 +1,80 @@
+<mat-accordion>
+  <mat-radio-group>
+    <mat-expansion-panel hideToggle disabled *ngIf="paymentInfoExists">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <mat-radio-button value="savedPayment" disableRipple (change)="expandPanel($event)">Saved Credit Card Information</mat-radio-button>
+          <div *ngIf="!paymentInfoExists">Saved Credit Card Information</div>
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+    </mat-expansion-panel>
+    <mat-expansion-panel hideToggle disabled [expanded]="panelExpanded">
+      <mat-expansion-panel-header [ngClass]="{'header-cursor': paymentInfoExists === false}">
+        <mat-panel-title [ngClass]="{'panel-title': paymentInfoExists === false}">
+          <mat-radio-button value="newPayment" disableRipple (change)="expandPanel($event)" *ngIf="paymentInfoExists">{{newPaymentTitle}}</mat-radio-button>
+          <div *ngIf="!paymentInfoExists">{{newPaymentTitle}}</div>
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      <form [formGroup]="paymentForm" (submit)="confirmPurchase()">
+        <mat-form-field class="mb-12px" [hideRequiredMarker]="true">
+          <mat-icon matPrefix class="mat-form-field-prefix">credit_card</mat-icon>
+          <input type="text" matInput formControlName="cardOwner" placeholder="Card Owner">
+          <mat-error *ngIf="paymentForm.controls.cardOwner.hasError('required')">
+            Card Owner is required
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field class="mb-12px" [hideRequiredMarker]="true">
+          <mat-icon matPrefix class="mat-form-field-prefix">credit_card</mat-icon>
+          <input maxlength="16" (keydown)="numberOnly($event)" matInput formControlName="cardNumber"
+                 placeholder="Card Number" [type]="hideCardNumber ? 'password' : 'text'">
+          <mat-icon matSuffix (click)="hideCardNumber = !hideCardNumber">{{hideCardNumber ? 'visibility_off'
+            : 'visibility'}}</mat-icon>
+          <mat-error *ngIf="paymentForm.controls.cardNumber.hasError('required')">
+            Card Number is required
+          </mat-error>
+          <mat-error *ngIf="paymentForm.controls.cardNumber.hasError('pattern')">
+            Not a valid credit card number
+          </mat-error>
+        </mat-form-field>
+        <div class="parted-input">
+          <mat-form-field class="mb-12px" [hideRequiredMarker]="true">
+            <mat-icon matPrefix class="mat-form-field-prefix">credit_card</mat-icon>
+            <input maxlength="5" type="text" matInput formControlName="cardExpirationDate"
+                   placeholder="Expiration Date" (keyup)="formatString($event)">
+            <mat-error *ngIf="paymentForm.controls.cardExpirationDate.hasError('required')">
+              Expiration Date is required
+            </mat-error>
+            <mat-error *ngIf="paymentForm.controls.cardExpirationDate.hasError('pattern')">
+              Not a valid expiration date (MM/YY)
+            </mat-error>
+            <mat-error *ngIf="paymentForm.controls.cardExpirationDate.hasError('cardExpired')">
+              Card is expired
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field [hideRequiredMarker]="true">
+            <mat-icon matPrefix class="mat-form-field-prefix">credit_card</mat-icon>
+            <input maxlength="4" (keydown)="numberOnly($event)" matInput formControlName="cardCvv"
+                   placeholder="CVV" [type]="hideCvv ? 'password' : 'text'">
+            <mat-icon matSuffix (click)="hideCvv = !hideCvv">{{hideCvv ? 'visibility_off'
+              : 'visibility'}}</mat-icon>
+            <mat-error *ngIf="paymentForm.controls.cardCvv.hasError('required')">
+              CVV is required
+            </mat-error>
+            <mat-error *ngIf="paymentForm.controls.cardCvv.hasError('pattern')">
+              Security number must be 3-4 digits
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <mat-checkbox class="checkbox" formControlName="savePayment">Save Payment Information</mat-checkbox>
+
+      </form>
+    </mat-expansion-panel>
+  </mat-radio-group>
+</mat-accordion>
+
+<div class="button-group">
+  <button type="button" mat-flat-button color="accent" routerLink="/news">Quit</button>
+  <button type="submit" mat-flat-button color="primary" (click)="confirmPurchase()">Confirm Purchase</button>
+</div>
+
+

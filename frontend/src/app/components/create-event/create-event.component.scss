@@ -1,0 +1,132 @@
+.container {
+  width: 600px;
+}
+
+.top-margin {
+  margin-top: 24px;
+}
+
+.top-group {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+
+.flex-column {
+  display: flex;
+  flex-direction: column;
+}
+
+.flex-row {
+  display: flex;
+  flex-direction: row;
+}
+
+.title-input {
+  width: 100%;
+}
+
+.timepicker-input {
+  margin-left: auto;
+  margin-right: auto;
+  width: 70px;
+}
+
+.center-table {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.table-form-field {
+  margin-top: 12px;
+  margin-bottom: 12px;
+}
+
+::ng-deep ngx-mat-timepicker form {
+  min-width: 0 !important;
+}
+
+::ng-deep label[for^=endTime] {
+  display: none !important;
+}
+
+.button {
+  margin-left: 12px;
+  float: right;
+}
+
+.seating-plan-detail {
+  display: flex;
+}
+
+.background-grey {
+  background-color: #EEEEEE;
+  overflow: hidden;
+}
+
+.detail-row {
+  height: 0;
+  max-height: 0;
+}
+
+.pricing-box {
+  flex-direction: row;
+  justify-content: space-between;
+  width: 600px;
+}
+
+.pricing-input {
+  max-width: 200px;
+}
+
+.pricing-input ::ng-deep .mat-form-field-flex {
+  background: white;
+}
+
+.sector-prices {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+}
+
+.color-box {
+  margin-top: -3px;
+}
+
+.expand-button {
+  margin-left: 24px;
+}
+
+.delete-button {
+  margin-left: 12px;
+}
+
+.note {
+  display: block;
+  padding-bottom: 12px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+body {
+  margin-bottom: 12px;
+}
+
+.bot-margin {
+  padding-bottom: 100px;
+}
+
+.image-row {
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  margin-top: 24px;
+}
+
+.file-upload {
+  width: 70%;
+}
+
+.upload-button {
+  margin-right: 12px;
+}

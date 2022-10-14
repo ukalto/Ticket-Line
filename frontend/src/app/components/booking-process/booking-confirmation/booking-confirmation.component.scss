@@ -1,0 +1,26 @@
+.center-items {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.success-icon {
+    font-size: 48px;
+    height: 48px;
+    width: 48px;
+}
+
+.claim-tickets-warning{    
+    margin: auto;
+    display: flex;
+    align-items: center;
+}
+
+.middle-section{
+    display: flex;
+    justify-content: space-between;
+}
+
+.button-group{
+    justify-content: right;
+}

@@ -1,0 +1,90 @@
+<div id="invoice" #invoice style="display: none">
+    <div class="invoice-header">
+        <div>
+            <h2>Ticketline GmbH</h2>
+            <h4>{{ invoiceDto?.companyLocation }}</h4>
+        </div>
+    </div>
+
+    <div class="invoice-seller-data">
+        <div class="invoice-seller-data-row">
+            <div class="invoice-seller-data-row-container">
+                <div class="invoice-seller-data-row-label">Issuing Date:</div>
+                <div class="invoice-date">{{ renderDate(invoiceDto?.invoiceDate) }}</div>
+            </div>
+        </div>
+
+        <div class="invoice-seller-data-row">
+            <div class="invoice-seller-data-row-container">
+                <div class="invoice-seller-data-row-label">Invoice Nr.:</div>
+                <div class="invoice-number">{{ invoiceDto?.invoiceNumber }}</div>
+            </div>
+        </div>
+
+        <div class="invoice-seller-data-row">
+            <div class="invoice-seller-data-row-container">
+                <div class="invoice-seller-data-row-label">Tax Number:</div>
+                <div class="vat-id">{{ invoiceDto?.taxNumber }}</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="invoice-data">
+        <h2 class="invoice-footer-line" *ngIf="invoiceDto?.invoiceType === 'purchase'">Invoice</h2>
+        <h2 class="invoice-footer-line" *ngIf="invoiceDto?.invoiceType === 'cancellation'">Cancellation Invoice</h2>
+
+        <table>
+            <tr>
+                <th>Event</th>
+                <th>Quantity</th>
+                <th>Location</th>
+                <th>Room</th>
+                <th>Sector</th>
+                <th>Type</th>
+                <th>Price / Unit</th>
+            </tr>
+            <tr *ngFor="let line of invoiceDto?.lines">
+                <td>{{ line.eventTitle }}</td>
+                <td>{{ line.quantity }}</td>
+                <td>{{ line.location }}</td>
+                <td>{{ line.room }}</td>
+                <td>{{ line.sector }}</td>
+                <td>{{ line.type }}</td>
+                <td>{{ line.pricePerUnit.toFixed(2) }}€</td>
+            </tr>
+            <tr id="invoice-net-sum">
+                <td>Sum</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td>{{ invoiceDto.netSum.toFixed(2) }}€</td>
+            </tr>
+            <tr id="invoice-vat-amount">
+                <td>+20% VAT</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td>{{ invoiceDto.vatAmount.toFixed(2) }}€</td>
+            </tr>
+            <tr id="invoice-gross-sum">
+                <td>Total</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td>{{ invoiceDto.grossSum.toFixed(2) }}€</td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="invoice-footer">
+        <div class="invoice-footer-line" *ngIf="invoiceDto?.invoiceType === 'purchase'">{{ invoiceDto.footerText }}</div>
+        <div class="invoice-footer-line" *ngIf="invoiceDto?.invoiceType === 'purchase'">Can be cancelled up to half an hour before the performance.</div>
+        <div class="invoice-footer-line" *ngIf="invoiceDto?.invoiceType === 'cancellation'">Cancels the invoice with number {{ invoiceDto.cancelledInvoiceId }}</div>
+    </div>
+</div>

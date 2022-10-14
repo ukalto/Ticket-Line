@@ -1,0 +1,63 @@
+#tickets {
+    display: none;
+}
+
+h3 {
+    color: #E7506B;
+    font-family: 'Oleo Script', cursive;
+    font-size: 48px;
+    margin-right: 24px;
+}
+
+.ticket {
+    margin: 0;
+    padding: 2cm;
+
+    height: 29.7cm;
+    width: 21.0cm;
+
+    max-height: 29.7cm;
+    max-width: 21.0cm;
+
+    font-size: 18px;
+}
+
+.ticket-header {
+    margin-bottom: 3cm;
+}
+
+.ticket-body .ticket-data {
+    margin-bottom: 5cm;
+}
+
+.ticket-body .ticket-data .ticket-data-line {
+    display: flex;
+    justify-content: space-between;
+
+    width: 12cm;
+}
+
+.ticket-body .ticket-data .ticket-data-line .ticket-data-label {
+    text-align: left;
+    width: 6cm;
+}
+
+.ticket-body .ticket-data .ticket-data-line .ticket-data-value {
+    text-align: left;
+    width: 6cm;
+}
+
+.ticket-security {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    flex-wrap: wrap;
+    flex-direction: row;
+    flex-basis: 100%;
+}
+
+// avoid empty page in PDF
+#tickets:last-child {
+    margin-bottom: -1cm;
+}

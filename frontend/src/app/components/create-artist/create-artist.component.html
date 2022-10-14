@@ -1,0 +1,47 @@
+<button mat-flat-button routerLink="/administration" class="top-margin">&lt; Administration</button>
+
+<div class="center">
+  <form [formGroup]="artistForm" class="form-style">
+    <h2>Create Artist</h2>
+    <mat-tab-group (selectedTabChange)="tabChange($event)">
+      <mat-tab label="Artist Name"></mat-tab>
+      <mat-tab label="Full Name"></mat-tab>
+    </mat-tab-group>
+
+    <table class="full-width" *ngIf="nameSelector === 'fullNameSelector'">
+      <tr>
+        <mat-form-field class="full-width">
+          <mat-label>First Name</mat-label>
+          <input type="text" matInput formControlName="firstName" [required]="nameSelector === 'fullNameSelector'">
+          <mat-error *ngIf="artistForm.controls.firstName.hasError('pattern')">
+            First name input must only contain letters!
+          </mat-error>
+        </mat-form-field>
+      </tr>
+      <tr>
+        <mat-form-field class="full-width">
+          <mat-label>Last Name</mat-label>
+          <input type="text" matInput formControlName="lastName" [required]="nameSelector === 'fullNameSelector'">
+          <mat-error *ngIf="artistForm.controls.lastName.hasError('pattern')">
+            Last name input must only contain letters!
+          </mat-error>
+        </mat-form-field>
+      </tr>
+    </table>
+    <table class="full-width" *ngIf="nameSelector === 'artistNameSelector'">
+      <tr>
+        <mat-form-field class="full-width">
+          <mat-label>Artist Name</mat-label>
+          <input type="text" matInput formControlName="artistName" [required]="nameSelector === 'artistNameSelector'">
+        </mat-form-field>
+      </tr>
+    </table>
+    <span *ngIf="nameSelector === 'artistNameSelector'"><strong>Note:</strong> Artist name has to be filled in.</span>
+    <span
+      *ngIf="nameSelector === 'fullNameSelector'"><strong>Note:</strong> First and last name have to be filled in.</span>
+    <div class="center-button">
+      <button mat-flat-button color="accent" class="button" type="button" routerLink="/administration">Cancel</button>
+      <button type="submit" mat-flat-button color="primary" (click)="submitArtist()">Create</button>
+    </div>
+  </form>
+</div>

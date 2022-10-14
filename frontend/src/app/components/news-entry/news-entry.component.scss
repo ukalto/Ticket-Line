@@ -1,0 +1,21 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    max-width: 600px;
+}
+
+.title-bar {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: space-between;
+}
+
+.back-button {
+    align-self: flex-start;
+    flex-shrink: 0;
+}
+
+#news-content {
+    white-space: break-spaces;
+}

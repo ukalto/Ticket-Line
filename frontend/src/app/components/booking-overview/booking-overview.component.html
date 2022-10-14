@@ -1,0 +1,54 @@
+<app-headline [icon]="'assignment'" [text]="'Booked Events'" [centered]="true"></app-headline>
+<h2 class="has-text-centered" *ngIf="bookings.length === 0">You currently have no bookings!</h2>
+<div class="bookings mt-48px pb-48px">
+  <mat-card *ngFor="let booking of bookings" class="card-container">
+    <div class="img-container">
+      <img mat-card-image [src]="booking.file" onerror="this.src='/assets/images/img.png'"/>
+    </div>
+    <div class="card-content-div">
+      <h3>
+                <span class="mr-12px">
+                    {{booking.title}}
+                </span>
+        <mat-chip-list>
+          <mat-chip [color]="determineColor(booking.bookingState)">
+            {{booking.bookingState}}
+          </mat-chip>
+        </mat-chip-list>
+      </h3>
+      <mat-card-subtitle>{{booking.date}}, {{booking.duration}}</mat-card-subtitle>
+      <mat-card-subtitle>{{booking.ticketCount}} Tickets, {{booking.price.toFixed(2)}}€ total</mat-card-subtitle>
+      <div class="bottom-button-group">
+        <div>
+          <button class="button" mat-flat-button color="accent"
+                  *ngIf="booking.bookingState === 'Paid' || booking.bookingState === 'Cancelled'"
+                  (click)="printInvoice(booking.invoiceNumber)">Print Invoice
+          </button>
+          <button class="button" mat-flat-button color="accent" *ngIf="booking.bookingState === 'Cancelled'"
+                  (click)="printInvoice(booking.cancellationInvoiceNumber)">Print Cancellation Invoice
+          </button>
+          <button class="button" mat-flat-button color="accent" *ngIf="booking.bookingState === 'Paid'"
+                  (click)="printTickets(booking.invoiceNumber)">Print Ticket
+          </button>
+        </div>
+        <div>
+          <button class="button" mat-flat-button color="primary"
+                  *ngIf="booking.bookingState === 'Reserved'"
+                  (click)="reservationToPurchase(booking.bookingId)">Buy Now
+          </button>
+          <button class="button" mat-flat-button color="warn"
+                  *ngIf="booking.bookingState === 'Paid'"
+                  (click)="cancel(booking.bookingId)">Cancel
+            Booking
+          </button>
+          <button class="button" mat-flat-button color="warn"
+                  *ngIf="booking.bookingState === 'Reserved'"
+                  (click)="cancel(booking.bookingId)">Cancel Reservation
+          </button>
+        </div>
+      </div>
+    </div>
+  </mat-card>
+</div>
+
+<div #pdfs></div>

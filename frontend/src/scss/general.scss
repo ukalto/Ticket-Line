@@ -1,0 +1,61 @@
+body {
+    background-color: whitesmoke;
+}
+
+html,
+body {
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+.is-hidden {
+    visibility: hidden;
+}
+
+.has-text-centered {
+    text-align: center;
+}
+
+.has-text-left{
+    text-align: left;
+}
+
+.has-text-right{
+    text-align: right;
+}
+
+.align-right {
+    justify-content: flex-end;
+    display: flex;
+}
+
+.align-centered {
+    justify-content: center;
+    display: flex;
+}
+
+.wirebox {
+    border: 1px solid black;
+    padding: 24px 12px;
+}
+
+.has-text-success{
+    color: $success;
+}
+
+.has-text-orange{
+    color: $orange;
+}
+
+.has-text-gray{
+    color: #9E9E9E;
+}
+
+.center-vertically{
+    display: flex;
+    align-items: center;
+}

@@ -1,0 +1,79 @@
+// Library Imports
+@use "@material/layout-grid/mdc-layout-grid";
+
+@import "scss/theme";
+/* You can add global styles to this file, and also import other style files */
+
+// Internal imports
+@import "scss/variables.scss";
+@import "scss/general.scss";
+@import "scss/spacing-helpers.sass";
+@import "scss/form-helpers.scss";
+
+body {
+  background-color: whitesmoke;
+}
+
+html, body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+.green-snackbar {
+  background: rgb(22, 157, 52);
+  color: white;
+}
+
+.green-snackbar button {
+  background-color: rgb(22, 157, 52);
+  color: white;
+  border: none;
+}
+
+.yellow-snackbar {
+  background: rgb(248, 178, 7);
+  color: white;
+}
+
+.yellow-snackbar button {
+  background-color: rgb(248, 178, 7);
+  color: white;
+  border: none;
+}
+
+.red-snackbar {
+  background: rgb(220, 53, 69);
+  color: white;
+}
+
+.red-snackbar button {
+  background-color: rgb(220, 53, 69);
+  color: white;
+  border: none;
+}
+
+.my-nav-link:hover, .my-nav-link:focus, .my-nav-link{
+  color: white;
+  text-decoration: none;
+}
+
+.mat-flat-button{
+  color: $opaque-black;
+  background: #F5F5F5;
+}
+
+.center {
+  text-align: center !important;
+  margin-top: 24px;
+}
+
+.top-margin {
+  margin-top: 24px;
+}
+
+
+
